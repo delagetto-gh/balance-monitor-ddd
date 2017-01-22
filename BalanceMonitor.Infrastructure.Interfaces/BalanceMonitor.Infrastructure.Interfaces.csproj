@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E2210B4-78E6-4919-8D77-CF7C099B4554}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BalanceMonitor.Infrastructure.Interfaces</RootNamespace>
+    <AssemblyName>BalanceMonitor.Infrastructure.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DDD\Aggregates\Entity.cs" />
+    <Compile Include="DDD\Aggregates\IAggregateRoot.cs" />
+    <Compile Include="DDD\Aggregates\IEntity.cs" />
+    <Compile Include="EventSourcing\Aggregates\EsAggregateRoot.cs" />
+    <Compile Include="EventSourcing\Aggregates\IEsAggregateRoot.cs" />
+    <Compile Include="EventSourcing\Events\EsDomainEvent.cs" />
+    <Compile Include="EventSourcing\Events\IEsDomainEvent.cs" />
+    <Compile Include="DDD\Events\IEventHandler.cs" />
+    <Compile Include="DDD\Events\IEventHandlerFactory.cs" />
+    <Compile Include="EventSourcing\Events\IEventStore.cs" />
+    <Compile Include="EventSourcing\Cqrs\Command\ICommand.cs" />
+    <Compile Include="EventSourcing\Cqrs\Command\ICommandBus.cs" />
+    <Compile Include="EventSourcing\Cqrs\Command\ICommandHandler.cs" />
+    <Compile Include="EventSourcing\Cqrs\Command\ICommandHandlerFactory.cs" />
+    <Compile Include="DDD\Events\IEvent.cs" />
+    <Compile Include="EventSourcing\Events\IEventBus.cs" />
+    <Compile Include="DDD\Repositories\IAggregateRootRepository.cs" />
+    <Compile Include="DDD\Repositories\IRepository.cs" />
+    <Compile Include="UnitOfWork\ISessionFactory.cs" />
+    <Compile Include="Ioc\IContainer.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventSourcing\Cqrs\Query\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

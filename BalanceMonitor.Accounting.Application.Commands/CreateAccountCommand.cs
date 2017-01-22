@@ -1,0 +1,22 @@
+﻿using BalanceMonitor.Infrastructure.Interfaces.EventSourcing.Cqrs;
+using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
+using System;
+
+namespace BalanceMonitor.Accounting.Application.Commands
+{
+  public class CreateAccountCommand : ICommand
+  {
+    public CreateAccountCommand(Guid id, string name)
+    {
+      this.Identifier = id;
+      this.Name = name;
+      this.Created = DateTime.Now;
+    }
+
+    public Guid Identifier { get; private set; }
+
+    public string Name { get; private set; }
+
+    public DateTime Created { get; private set; }
+  }
+}

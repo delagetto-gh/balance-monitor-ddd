@@ -4,7 +4,7 @@ using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
 
 namespace BalanceMonitor.Accounting.Domain.Services
 {
-  public class AccountRepository : EsAggregateRootRepository<Account>, IAccountRepository
+  public class AccountRepository : EventSourcedAggregateRootRepository<Account>, IAccountRepository
   {
     private readonly IEventStore eventStore;
 

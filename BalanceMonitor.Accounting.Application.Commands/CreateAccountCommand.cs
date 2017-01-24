@@ -1,6 +1,4 @@
-﻿using BalanceMonitor.Infrastructure.Interfaces.EventSourcing.Cqrs;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
-using System;
+﻿using System;
 
 namespace BalanceMonitor.Accounting.Application.Commands
 {

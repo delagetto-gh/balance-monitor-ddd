@@ -76,10 +76,6 @@
       <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
       <Name>BalanceMonitor.Infrastructure.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
-      <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
-      <Name>BalanceMonitor.Infrastructure.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ServiceHosts\Web.Debug.config">

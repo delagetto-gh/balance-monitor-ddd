@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace BalanceMonitor.Accounting.Domain.Events
 {
   [Serializable]
-  public class AccountCreatedEvent : EsDomainEvent
+  public class AccountCreatedEvent : VersionedDomainEvent
   {
     public string Name { get; set; }
 

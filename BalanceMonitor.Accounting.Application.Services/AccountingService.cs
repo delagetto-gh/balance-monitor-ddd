@@ -1,6 +1,7 @@
 ﻿using BalanceMonitor.Accounting.Application.Commands;
 using BalanceMonitor.Accounting.Application.Projections;
 using BalanceMonitor.Accounting.Domain.Events;
+using BalanceMonitor.Infrastructure.Interfaces.Cqrs;
 using System;
 using System.Collections.Generic;
 
@@ -8,9 +9,15 @@ namespace BalanceMonitor.Accounting.Application.Services.ApplicationServices
 {
   public class AccountingService : IAccountingService
   {
+    private readonly ICommandBus cmdBus;
+    public AccountingService(ICommandBus cmdBus)
+    {
+      this.cmdBus = cmdBus;
+    }
+
     public void HandleCommand(CreateAccountCommand cmd)
     {
-      throw new System.NotImplementedException();
+      this.cmdBus.Submit(cmd);
     }
 
     public IEnumerable<AccountDailyBalance> GetAccountBalanceOn(DateTime date)

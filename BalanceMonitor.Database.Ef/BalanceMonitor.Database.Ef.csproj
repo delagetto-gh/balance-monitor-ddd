@@ -46,14 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -67,43 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AccountAudit.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AccountDailyBalance.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Aggregate.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BalanceMonitorEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BalanceMonitorEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BalanceMonitorEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BalanceMonitorEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BalanceMonitorEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Event.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="BalanceMonitorEventStoreContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transaction.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TransactionType.cs">
-      <DependentUpon>BalanceMonitorEntities.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\BalanceMonitorModel.edmx.sql" />
@@ -122,35 +79,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BalanceMonitor.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BalanceMonitorEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BalanceMonitorEntities.edmx</DependentUpon>
-      <LastGenOutput>BalanceMonitorEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="BalanceMonitorEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BalanceMonitorEntities.edmx</DependentUpon>
-      <LastGenOutput>BalanceMonitorEntities.cs</LastGenOutput>
-    </Content>
-    <Content Include="BalanceMonitor_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>BalanceMonitor.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="BalanceMonitorEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BalanceMonitorEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="BalanceMonitorEntities.edmx.diagram">
-      <DependentUpon>BalanceMonitorEntities.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

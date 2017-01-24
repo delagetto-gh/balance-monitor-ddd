@@ -5,7 +5,7 @@ using System;
 namespace BalanceMonitor.Accounting.Domain.Events
 {
   [Serializable]
-  public class AmountDepositedEvent : EsDomainEvent
+  public class AmountDepositedEvent : VersionedDomainEvent
   {
     public AmountDepositedEvent(Guid aggregateId, Money amount)
       : base(aggregateId)

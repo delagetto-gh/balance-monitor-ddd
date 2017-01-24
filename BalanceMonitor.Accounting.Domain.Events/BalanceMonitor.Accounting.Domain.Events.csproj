@@ -52,9 +52,9 @@
       <Project>{123ece29-6c16-4ce0-936a-09df130b4271}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
-      <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
-      <Name>BalanceMonitor.Infrastructure.Interfaces</Name>
+    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
+      <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
+      <Name>BalanceMonitor.Infrastructure.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

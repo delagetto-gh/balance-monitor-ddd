@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateAccountCommand.cs" />
-    <Compile Include="Handlers\CreateNewAccountCommandHandler.cs" />
+    <Compile Include="Handlers\BalanceMonitorAccountingCommandHandler.cs" />
     <Compile Include="HelloWorldCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsIdentityCommand.cs" />
@@ -54,9 +54,13 @@
       <Project>{c8178453-0433-4dc8-b6ef-db344b3eeb3a}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
-      <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
-      <Name>BalanceMonitor.Infrastructure.Interfaces</Name>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Services\BalanceMonitor.Accounting.Domain.Services.csproj">
+      <Project>{ba2eda14-8e7c-4a56-b304-1ea7e15799f6}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
+      <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
+      <Name>BalanceMonitor.Infrastructure.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

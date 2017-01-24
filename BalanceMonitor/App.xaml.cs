@@ -29,8 +29,8 @@ namespace BalanceMonitor
 
     public App()
     {
-      this.iocContainer = new UnityWrapperIoc(new Microsoft.Practices.Unity.UnityContainer());
-      this.iocContainer.Register<IContainer, UnityWrapperIoc>();
+      this.iocContainer = new UnityWrappedIoc(new Microsoft.Practices.Unity.UnityContainer());
+      this.iocContainer.Register<IContainer, UnityWrappedIoc>();
       this.DispatcherUnhandledException += AppDispatcherUnhandledException;
       this.Startup += OnApplicationStartup;
     }
@@ -69,7 +69,7 @@ namespace BalanceMonitor
     private void RegisterCqrsInfrastructure()
     {
       //registee database (Entifiy Framwork) repositories
-      this.iocContainer.Register<IAggregateRootRepository<Account>, EsAggregateRootRepository<Account>>();
+      this.iocContainer.Register<IAggregateRootRepository<Account>, EventSourcedAggregateRootRepository<Account>>();
 
       //register eventstore
       this.iocContainer.Register<IEventStore, EventStoreMsSql>();
@@ -79,8 +79,8 @@ namespace BalanceMonitor
       this.iocContainer.Register<IEventHandlerFactory, EventHandlerFactory>();
 
       //register application Bus
-      this.iocContainer.Register<ICommandBus, ApplicationBus>();
-      this.iocContainer.Register<IEventBus, ApplicationBus>();
+      this.iocContainer.Register<ICommandBus, DomainEvents>();
+      this.iocContainer.Register<IDomainEvent, DomainEvents>();
     }
 
     private void StartApplication()

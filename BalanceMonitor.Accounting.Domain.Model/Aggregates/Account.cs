@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BalanceMonitor.Accounting.Domain.Model
 {
-  public class Account : EsAggregateRoot
+  public class Account : EventSourced
   {
     private List<Money> balance;
     private string name;

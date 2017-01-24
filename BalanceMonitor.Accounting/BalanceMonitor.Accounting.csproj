@@ -50,10 +50,6 @@
       <Project>{52ddb7f5-afa8-4e71-a84f-718556cc6a84}</Project>
       <Name>BalanceMonitor.Accounting.Application.Projections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
-      <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
-      <Name>BalanceMonitor.Infrastructure.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

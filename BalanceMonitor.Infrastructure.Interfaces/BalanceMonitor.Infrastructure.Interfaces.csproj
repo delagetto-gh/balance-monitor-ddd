@@ -39,31 +39,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DDD\Aggregates\Entity.cs" />
     <Compile Include="DDD\Aggregates\IAggregateRoot.cs" />
     <Compile Include="DDD\Aggregates\IEntity.cs" />
     <Compile Include="DDD\Repositories\IAggregateRootRepository.cs" />
-    <Compile Include="EventSourcing\Aggregates\EsAggregateRoot.cs" />
-    <Compile Include="EventSourcing\Aggregates\IEsAggregateRoot.cs" />
-    <Compile Include="EventSourcing\Events\EsDomainEvent.cs" />
-    <Compile Include="EventSourcing\Events\IEsDomainEvent.cs" />
-    <Compile Include="DDD\Events\IEventHandler.cs" />
-    <Compile Include="DDD\Events\IEventHandlerFactory.cs" />
-    <Compile Include="EventSourcing\Events\IEventStore.cs" />
-    <Compile Include="EventSourcing\Cqrs\Command\ICommand.cs" />
-    <Compile Include="EventSourcing\Cqrs\Command\ICommandBus.cs" />
-    <Compile Include="EventSourcing\Cqrs\Command\ICommandHandler.cs" />
-    <Compile Include="EventSourcing\Cqrs\Command\ICommandHandlerFactory.cs" />
-    <Compile Include="DDD\Events\IEvent.cs" />
-    <Compile Include="EventSourcing\Events\IEventBus.cs" />
+    <Compile Include="DDD\Repositories\IEntityRepository.cs" />
+    <Compile Include="CqrsEventSourcing\EventSourcing\EventSourced.cs" />
+    <Compile Include="CqrsEventSourcing\EventSourcing\IEventSourced.cs" />
+    <Compile Include="CqrsEventSourcing\EventSourcing\VersionedDomainEvent.cs" />
+    <Compile Include="CqrsEventSourcing\EventSourcing\IVersionedDomainEvent.cs" />
+    <Compile Include="CqrsEventSourcing\Cqrs\Query\IEventHandler.cs" />
+    <Compile Include="CqrsEventSourcing\EventSourcing\IEventStore.cs" />
+    <Compile Include="CqrsEventSourcing\Cqrs\Command\ICommand.cs" />
+    <Compile Include="CqrsEventSourcing\Cqrs\Command\ICommandBus.cs" />
+    <Compile Include="CqrsEventSourcing\Cqrs\Command\ICommandHandler.cs" />
+    <Compile Include="DDD\Events\IDomainEvent.cs" />
+    <Compile Include="DDD\Events\IDomainEventBus.cs" />
     <Compile Include="UnitOfWork\ISessionFactory.cs" />
     <Compile Include="Ioc\IContainer.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EventSourcing\Cqrs\Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

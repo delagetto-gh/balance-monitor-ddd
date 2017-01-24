@@ -42,6 +42,7 @@
     <Compile Include="DDD\Aggregates\Entity.cs" />
     <Compile Include="DDD\Aggregates\IAggregateRoot.cs" />
     <Compile Include="DDD\Aggregates\IEntity.cs" />
+    <Compile Include="DDD\Repositories\IAggregateRootRepository.cs" />
     <Compile Include="EventSourcing\Aggregates\EsAggregateRoot.cs" />
     <Compile Include="EventSourcing\Aggregates\IEsAggregateRoot.cs" />
     <Compile Include="EventSourcing\Events\EsDomainEvent.cs" />
@@ -55,8 +56,6 @@
     <Compile Include="EventSourcing\Cqrs\Command\ICommandHandlerFactory.cs" />
     <Compile Include="DDD\Events\IEvent.cs" />
     <Compile Include="EventSourcing\Events\IEventBus.cs" />
-    <Compile Include="DDD\Repositories\IAggregateRootRepository.cs" />
-    <Compile Include="DDD\Repositories\IRepository.cs" />
     <Compile Include="UnitOfWork\ISessionFactory.cs" />
     <Compile Include="Ioc\IContainer.cs" />
     <Compile Include="Logging\ILogger.cs" />

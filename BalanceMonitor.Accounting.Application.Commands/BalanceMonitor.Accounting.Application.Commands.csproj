@@ -43,8 +43,13 @@
     <Compile Include="Handlers\CreateNewAccountCommandHandler.cs" />
     <Compile Include="HelloWorldCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowsIdentityCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Common\BalanceMonitor.Accounting.Domain.Common.csproj">
+      <Project>{123ece29-6c16-4ce0-936a-09df130b4271}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Model\BalanceMonitor.Accounting.Domain.Model.csproj">
       <Project>{c8178453-0433-4dc8-b6ef-db344b3eeb3a}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Model</Name>
@@ -55,7 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NB - All Command must be fully serialisable.txt" />
+    <Content Include="_nb - All Command must be fully serialisable.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

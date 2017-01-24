@@ -1,7 +1,6 @@
 ﻿using BalanceMonitor.Accounting.Domain.Model;
 using BalanceMonitor.Infrastructure.Interfaces.DDD;
 using BalanceMonitor.Infrastructure.Interfaces.EventSourcing.Cqrs;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
 using System;
 
 namespace BalanceMonitor.Accounting.Application.Commands
@@ -23,7 +22,7 @@ namespace BalanceMonitor.Accounting.Application.Commands
         if (acct == null)
         {
           acct = Account.Create(cmd.Identifier, cmd.Name, cmd.Created);
-          this.repository.Save(acct);
+          this.repository.Add(acct);
         }
         else
         {

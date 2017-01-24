@@ -30,7 +30,7 @@ namespace BalanceMonitor.Infrastructure.Core
       }
     }
 
-    public void Save(TAggregateRoot aggregate)
+    public void Add(TAggregateRoot aggregate)
     {
       ///Don't save the entity if it hasnt had any changes applied to it.
       if (aggregate.UncommitedChanges.Any())

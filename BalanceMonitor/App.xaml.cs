@@ -1,16 +1,15 @@
 ﻿using BalanceMonitor.Accounting;
 using BalanceMonitor.Accounting.Application.Commands;
-using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Projections.Repositories;
-using BalanceMonitor.Accounting.Domain.Events;
+using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
 using BalanceMonitor.Accounting.Domain.Model;
-using BalanceMonitor.Infrastructure.Core.Cqrs;
-using BalanceMonitor.Infrastructure.Core.Ioc;
+using BalanceMonitor.Infrastructure.Core;
 using BalanceMonitor.Infrastructure.Core.Logging;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork.EventSourcing;
+using BalanceMonitor.Infrastructure.Interfaces.DDD;
+using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
+using BalanceMonitor.Infrastructure.Interfaces.EventSourcing.Cqrs;
 using BalanceMonitor.Infrastructure.Interfaces.Ioc;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
+using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
 using BalanceMonitor.ViewModels;
 using BalanceMonitor.ViewModels.Shell;
 using System;
@@ -63,8 +62,6 @@ namespace BalanceMonitor
       //register framework services etc..
       this.iocContainer.Register<ILogger, ConsoleLogger>();
       this.iocContainer.Register<ISessionFactory, BalanceMonitorSessionFactory>();
-      this.iocContainer.Register<IAccountingCommandService, AccountingService>();
-      this.iocContainer.Register<IAccountingQueryService, AccountingEfRepository>();
       this.iocContainer.Register<IAccountingService, AccountingService>();
       this.RegisterCqrsInfrastructure();
     }
@@ -84,22 +81,6 @@ namespace BalanceMonitor
       //register application Bus
       this.iocContainer.Register<ICommandBus, ApplicationBus>();
       this.iocContainer.Register<IEventBus, ApplicationBus>();
-
-      this.RegisterCqrsEventAndCommandHandlers();
-    }
-
-    private void RegisterCqrsEventAndCommandHandlers()
-    {
-      //register event handlers
-      this.iocContainer.Register<IEventHandler<AmountDepositedEvent>, AccountAuditDenormaliser>(typeof(AccountAuditDenormaliser).Name);
-      this.iocContainer.Register<IEventHandler<AmountWithdrawalEvent>, AccountAuditDenormaliser>(typeof(AccountAuditDenormaliser).Name);
-      this.iocContainer.Register<IEventHandler<AccountCreatedEvent>, AccountDailyBalanceDenormaliser>(typeof(AccountDailyBalanceDenormaliser).Name);
-      this.iocContainer.Register<IEventHandler<AmountDepositedEvent>, AccountDailyBalanceDenormaliser>(typeof(AccountDailyBalanceDenormaliser).Name);
-      this.iocContainer.Register<IEventHandler<AmountWithdrawalEvent>, AccountDailyBalanceDenormaliser>(typeof(AccountDailyBalanceDenormaliser).Name);
-
-      //register command handlers
-      this.iocContainer.Register<ICommandHandler<HelloWorldCommand>, HelloWorldCommandHandler>();
-      this.iocContainer.Register<ICommandHandler<CreateAccountCommand>, CreateNewAccountCommandHandler>();
     }
 
     private void StartApplication()

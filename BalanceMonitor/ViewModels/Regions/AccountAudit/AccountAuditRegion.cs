@@ -1,5 +1,4 @@
 ﻿using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Projections.Repositories;
 using BalanceMonitor.Database.Ef;
 using System.Collections.ObjectModel;
 

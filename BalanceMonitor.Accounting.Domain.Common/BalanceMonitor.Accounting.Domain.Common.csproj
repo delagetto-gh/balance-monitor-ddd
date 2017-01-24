@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C8178453-0433-4DC8-B6EF-DB344B3EEB3A}</ProjectGuid>
+    <ProjectGuid>{123ECE29-6C16-4CE0-936A-09DF130B4271}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BalanceMonitor.Accounting.Domain.Model</RootNamespace>
-    <AssemblyName>BalanceMonitor.Accounting.Domain.Model</AssemblyName>
+    <RootNamespace>BalanceMonitor.Accounting.Domain.Common</RootNamespace>
+    <AssemblyName>BalanceMonitor.Accounting.Domain.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,26 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregates\Account.cs" />
+    <Compile Include="Cash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Common\BalanceMonitor.Accounting.Domain.Common.csproj">
-      <Project>{123ece29-6c16-4ce0-936a-09df130b4271}</Project>
-      <Name>BalanceMonitor.Accounting.Domain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Events\BalanceMonitor.Accounting.Domain.Events.csproj">
-      <Project>{f250712e-418a-4b71-9731-09d180f0aa7c}</Project>
-      <Name>BalanceMonitor.Accounting.Domain.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
-      <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
-      <Name>BalanceMonitor.Infrastructure.Interfaces</Name>
-    </ProjectReference>
+    <Content Include="_nb - SharedKernel - shared only between App Commands, Domain Model and Events in same BC!.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

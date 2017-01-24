@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventSourcing\Cqrs\ApplicationBus.cs" />
     <Compile Include="Logging\FileSystemLogger.cs" />
     <Compile Include="UnitOfWork\BalanceMonitorEFSession.cs" />
     <Compile Include="UnitOfWork\BalanceMonitorSessionFactory.cs" />

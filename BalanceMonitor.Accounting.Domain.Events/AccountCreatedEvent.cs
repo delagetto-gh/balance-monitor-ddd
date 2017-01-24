@@ -1,5 +1,5 @@
-﻿using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
+﻿using BalanceMonitor.Accounting.Domain.Common;
+using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
 using System;
 using System.Collections.Generic;
 
@@ -9,13 +9,17 @@ namespace BalanceMonitor.Accounting.Domain.Events
   public class AccountCreatedEvent : EsDomainEvent
   {
     public string Name { get; set; }
+
     public DateTime Effective { get; set; }
 
-    public AccountCreatedEvent(Guid id, string name, DateTime created)
+    public IEnumerable<Money> OpeningBalance { get; set; }
+
+    public AccountCreatedEvent(Guid id, string name, DateTime created, IEnumerable<Money> openingBalance)
       : base(id)
     {
       this.Name = name;
       this.Effective = created;
+      this.OpeningBalance = openingBalance;
     }
 
     /// <summary>

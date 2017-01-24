@@ -4,7 +4,7 @@ using System;
 
 namespace BalanceMonitor.Accounting.Application.Commands
 {
-  public class CreateAccountCommand : ICommand
+  public class CreateAccountCommand : WindowsIdentityCommand
   {
     public CreateAccountCommand(Guid id, string name)
     {

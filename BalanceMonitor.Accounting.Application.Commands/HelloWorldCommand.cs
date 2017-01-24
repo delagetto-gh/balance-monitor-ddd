@@ -4,7 +4,7 @@ using System;
 
 namespace BalanceMonitor.Accounting.Application.Commands
 {
-  public class HelloWorldCommand : ICommand
+  public class HelloWorldCommand : WindowsIdentityCommand
   {
     public DateTime Date { get; private set; }
 

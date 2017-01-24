@@ -40,15 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountCreatedEvent.cs" />
-    <Compile Include="Dtos\Cash.cs" />
     <Compile Include="AmountDepositedEvent.cs" />
     <Compile Include="AmountWithdrawalEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NB - All Events must be fully serialisable.txt" />
+    <Content Include="_nb - All Events must be fully serialisable.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Common\BalanceMonitor.Accounting.Domain.Common.csproj">
+      <Project>{123ece29-6c16-4ce0-936a-09df130b4271}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Infrastructure.Interfaces\BalanceMonitor.Infrastructure.Interfaces.csproj">
       <Project>{3e2210b4-78e6-4919-8d77-cf7c099b4554}</Project>
       <Name>BalanceMonitor.Infrastructure.Interfaces</Name>

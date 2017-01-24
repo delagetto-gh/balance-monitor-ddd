@@ -1,4 +1,5 @@
-﻿using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
+﻿using BalanceMonitor.Accounting.Domain.Common;
+using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
 using System;
 
 namespace BalanceMonitor.Accounting.Domain.Events
@@ -6,10 +7,10 @@ namespace BalanceMonitor.Accounting.Domain.Events
   [Serializable]
   public class AmountDepositedEvent : EsDomainEvent
   {
-    public AmountDepositedEvent(Guid aggregateId, Cash amount)
+    public AmountDepositedEvent(Guid aggregateId, Money amount)
       : base(aggregateId)
     {
-      this.Cash = amount;
+      this.Amount = amount;
     }
 
     /// <summary>
@@ -18,6 +19,6 @@ namespace BalanceMonitor.Accounting.Domain.Events
     private AmountDepositedEvent()
     { }
 
-    public Cash Cash { get; set; }
+    public Money Amount { get; set; }
   }
 }

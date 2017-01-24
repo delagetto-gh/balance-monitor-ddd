@@ -39,12 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountingModule.cs" />
-    <Compile Include="AccountingService.cs" />
-    <Compile Include="AccountingApplicationBus.cs" />
-    <Compile Include="Interfaces\IAccountingCommandService.cs" />
-    <Compile Include="Interfaces\IAccountingQueryService.cs" />
-    <Compile Include="Interfaces\IAccountingService.cs" />
+    <Compile Include="BootStrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

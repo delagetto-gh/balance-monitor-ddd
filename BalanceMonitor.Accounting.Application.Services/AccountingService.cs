@@ -37,9 +37,9 @@ namespace BalanceMonitor.Accounting.Application.Services.ApplicationServices
       return this.accDailyBalanceService.GetAccountBalanceOn(accId, date);
     }
 
-    public IEnumerable<AccountDailyBalance> GetAuditForAccountOnDate(Guid accId, DateTime date)
+    public IEnumerable<AccountAudit> GetAuditOnDate(DateTime date)
     {
-      return this.accAuditService.GetAuditForAccountOnDate(accId, date);
+      return this.accAuditService.GetAuditOnDate(date);
     }
   }
 }

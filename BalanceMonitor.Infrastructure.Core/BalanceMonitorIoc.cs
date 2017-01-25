@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace BalanceMonitor.Infrastructure.Core
 {
-  public class UnityWrappedIoc : IContainer
+  public class BalanceMonitorIoc : IContainer
   {
     private readonly IUnityContainer ulUnityContainer;
 
-    public UnityWrappedIoc(IUnityContainer unityContainer)
+    public BalanceMonitorIoc(IUnityContainer unityContainer)
     {
       this.ulUnityContainer = unityContainer;
     }
@@ -21,6 +21,11 @@ namespace BalanceMonitor.Infrastructure.Core
     public IEnumerable<TInterface> ResolveAll<TInterface>()
     {
       return this.ulUnityContainer.ResolveAll<TInterface>();
+    }
+
+    public void Register<TClass>()
+    {
+      this.ulUnityContainer.RegisterType<TClass>();
     }
 
     public void Register<TInterface, TClass>() where TClass : TInterface

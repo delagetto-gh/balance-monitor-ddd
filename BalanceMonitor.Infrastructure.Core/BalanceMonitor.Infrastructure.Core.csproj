@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BalanceMonitorSessionFactory.cs" />
     <Compile Include="BalanceMonitorTransactionCommandBus.cs" />
     <Compile Include="BalanceMonitorXmlEventStore.cs" />
     <Compile Include="BalanceMonitorDomainEvents.cs" />
@@ -78,10 +79,11 @@
     <Compile Include="Interfaces\DDD\Repositories\IEntityRepository.cs" />
     <Compile Include="Interfaces\Ioc\IContainer.cs" />
     <Compile Include="Interfaces\Logging\ILogger.cs" />
+    <Compile Include="Interfaces\UnitOfWork\ISessionFactory.cs" />
     <Compile Include="Interfaces\UnitOfWork\ISession.cs" />
     <Compile Include="Logging\DebugLogger.cs" />
     <Compile Include="Logging\FileSystemLogger.cs" />
-    <Compile Include="UnityWrappedIoc.cs" />
+    <Compile Include="BalanceMonitorIoc.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

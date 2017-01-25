@@ -2,10 +2,11 @@
 using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Accounting.Domain.Events
 {
-  [Serializable]
+  [DataContract]
   public class AccountCreatedEvent : VersionedDomainEvent
   {
     public string Name { get; set; }
@@ -26,5 +27,7 @@ namespace BalanceMonitor.Accounting.Domain.Events
     /// Req for serialization
     /// </summary>
     private AccountCreatedEvent() { }
+
+    public string AccountName { get; set; }
   }
 }

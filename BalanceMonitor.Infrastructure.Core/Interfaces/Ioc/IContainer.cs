@@ -8,6 +8,8 @@ namespace BalanceMonitor.Infrastructure.Interfaces.Ioc
 
     IEnumerable<TInterface> ResolveAll<TInterface>();
 
+    void Register<TClass>();
+
     void Register<TInterface, TClass>() where TClass : TInterface;
 
     void Register<TInterface, TClass>(string keyName) where TClass : TInterface;

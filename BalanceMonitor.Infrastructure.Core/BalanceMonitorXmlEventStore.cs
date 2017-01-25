@@ -3,6 +3,7 @@ using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Infrastructure.Core
@@ -16,27 +17,39 @@ namespace BalanceMonitor.Infrastructure.Core
       this.xmlFileStream = File.Create("BalanceMonitorXmlEventStore.xml");
     }
 
-    private void SerializeEvents(IEnumerable<IDomainEvent> eventsCollection, FileStream fs)
+    private void SerializeEvents(IEnumerable<VersionedDomainEvent> eventsCollection, FileStream fs)
     {
-      var xmlSerializer = new DataContractSerializer(typeof(IEnumerable<IDomainEvent>));
-      xmlSerializer.WriteObject(fs, eventsCollection);
+      //var dataContractSerializer = new DataContractSerializer(typeof(IEnumerable<VersionedDomainEvent>));
+      //dataContractSerializer.WriteObject(fs, eventsCollection);
+
+
+      dynamic evt = eventsCollection.First();
+      var dataContractSerializer = new DataContractSerializer(evt.GetType());
+      dataContractSerializer.WriteObject(fs, evt);
     }
 
-    private IEnumerable<IDomainEvent> DeserializeEvents(FileStream fs)
+    private IEnumerable<VersionedDomainEvent> DeserializeEvents(FileStream fs)
     {
-      var xmlDeserializer = new DataContractSerializer(typeof(IEnumerable<IDomainEvent>));
-      var obj = xmlDeserializer.ReadObject(fs) as IEnumerable<IDomainEvent>;
-      if (obj != null)
+      if (fs.Length > 0)
       {
-        return obj;
+        var xmlDeserializer = new DataContractSerializer(typeof(IEnumerable<VersionedDomainEvent>));
+        var obj = xmlDeserializer.ReadObject(fs) as IEnumerable<VersionedDomainEvent>;
+        if (obj != null)
+        {
+          return obj;
+        }
+        else
+        {
+          throw new Exception("Failed to Deserialize Event Store you muppet");
+        }
       }
       else
       {
-        throw new Exception("Failed to Deserialize Event Store you muppet");
+        return new List<VersionedDomainEvent>();
       }
     }
 
-    public IEnumerable<IDomainEvent> Events
+    public IEnumerable<VersionedDomainEvent> Events
     {
       get
       {
@@ -45,9 +58,9 @@ namespace BalanceMonitor.Infrastructure.Core
       }
     }
 
-    public void Add(IDomainEvent @event)
+    public void Add(VersionedDomainEvent @event)
     {
-      var events = new List<IDomainEvent>(this.Events);
+      var events = new List<VersionedDomainEvent>(this.Events);
       events.Add(@event);
       this.SerializeEvents(events, this.xmlFileStream);
     }

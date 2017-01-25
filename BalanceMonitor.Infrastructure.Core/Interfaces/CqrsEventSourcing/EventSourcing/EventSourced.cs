@@ -6,8 +6,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public abstract class EventSourced : IEventSourced
   {
-    private readonly List<IVersionedDomainEvent> changes = new List<IVersionedDomainEvent>();
-    private readonly Dictionary<Type, Action<IVersionedDomainEvent>> eventHandlers = new Dictionary<Type, Action<IVersionedDomainEvent>>();
+    private readonly List<VersionedDomainEvent> changes = new List<VersionedDomainEvent>();
+    private readonly Dictionary<Type, Action<VersionedDomainEvent>> eventHandlers = new Dictionary<Type, Action<VersionedDomainEvent>>();
 
     protected EventSourced()
     {
@@ -18,7 +18,7 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 
     public int Version { get; set; }
 
-    public IEnumerable<IVersionedDomainEvent> UncommitedChanges
+    public IEnumerable<VersionedDomainEvent> UncommitedChanges
     {
       get
       {
@@ -31,7 +31,7 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
       this.changes.Clear();
     }
 
-    public void LoadFromHistory(IEnumerable<IVersionedDomainEvent> events)
+    public void LoadFromHistory(IEnumerable<VersionedDomainEvent> events)
     {
       foreach (var @event in events.OrderBy(e => e.Version))//ensure events are ordered in asc (from beginning)
       {
@@ -40,17 +40,17 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
       }
     }
 
-    protected void Handles<TDomainEvent>(Action<TDomainEvent> handler) where TDomainEvent : IVersionedDomainEvent
+    protected void Handles<TDomainEvent>(Action<TDomainEvent> handler) where TDomainEvent : VersionedDomainEvent
     {
       this.eventHandlers.Add(typeof(TDomainEvent), @event => handler((TDomainEvent)@event));
     }
 
-    protected void Apply(IVersionedDomainEvent @event)
+    protected void Apply(VersionedDomainEvent @event)
     {
       this.Apply(@event, true);
     }
 
-    private void Apply(IVersionedDomainEvent @event, bool isNew)
+    private void Apply(VersionedDomainEvent @event, bool isNew)
     {
       if (this.eventHandlers.ContainsKey(@event.GetType()))
       {

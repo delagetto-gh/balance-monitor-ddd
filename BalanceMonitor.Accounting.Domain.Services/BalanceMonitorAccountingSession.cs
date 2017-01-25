@@ -4,44 +4,34 @@ using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace BalanceMonitor.Infrastructure.Core
 {
-  public class BalanceMonitorAccountingContext : ISession<BalanceMonitorAccountingContext>
+  public class BalanceMonitorAccountingSession : ISession
   {
     private IEventStore eventStore;
 
     private IDomainEvents domainEventsPublisher;
 
-    private ObservableCollection<IDomainEvent> events = new ObservableCollection<IDomainEvent>();
+    private ObservableCollection<VersionedDomainEvent> events = new ObservableCollection<VersionedDomainEvent>();
 
     private bool IsDirty = true;
 
-    public BalanceMonitorAccountingContext(IEventStore eventStore, IDomainEvents domainEventsPublisher)
+    public BalanceMonitorAccountingSession(IEventStore eventStore, IDomainEvents domainEventsPublisher)
     {
       this.eventStore = eventStore;
       this.domainEventsPublisher = domainEventsPublisher;
+      this.events.CollectionChanged += (o, evnt) => this.IsDirty = true;
     }
 
-    private void OnEventsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-    {
-      this.IsDirty = true;
-    }
-
-    public BalanceMonitorAccountingContext Open()
-    {
-      return this;
-    }
-
-    public ICollection<IDomainEvent> Events
+    public ICollection<VersionedDomainEvent> Events
     {
       get
       {
         if (this.IsDirty)
         {
           var eventsUpdated = this.eventStore.Events;
-          this.events = new ObservableCollection<IDomainEvent>();
+          this.events = new ObservableCollection<VersionedDomainEvent>(eventsUpdated);
           this.IsDirty = false;
         }
         return this.events;
@@ -52,7 +42,7 @@ namespace BalanceMonitor.Infrastructure.Core
     {
       try
       {
-        IEnumerable<IDomainEvent> events = this.events;
+        IEnumerable<VersionedDomainEvent> events = this.events;
         foreach (var @event in events)
         {
           this.eventStore.Add(@event);

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Accounting.Domain.Common
 {
-  [Serializable]
+  [DataContract]
   public class Money
   {
     public Money(string currency, decimal value)

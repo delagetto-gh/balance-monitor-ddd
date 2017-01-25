@@ -1,7 +1,6 @@
 ﻿using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Accounting.Domain.Events;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
-using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,9 +13,9 @@ namespace BalanceMonitor.Accounting.Application.Projections
                                                  IEventHandler<AccountCreatedEvent>
   {
     private readonly ILogger logger;
-    private readonly ISession<AccountDailyBalanceContext> session;
+    private readonly AccountDailyBalanceSession session;
 
-    public AccountDailyBalanceDenormaliser(ISession<AccountDailyBalanceContext> session, ILogger log)
+    public AccountDailyBalanceDenormaliser(AccountDailyBalanceSession session, ILogger log)
     {
       this.logger = log;
       this.session = session;

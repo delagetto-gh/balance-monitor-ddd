@@ -68,12 +68,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\Regions\AccountAudit\IAccountAuditRegion.cs" />
     <Compile Include="ViewModels\Regions\AccountDailyBalance\AccountDailyBalanceRegion.cs" />
     <Compile Include="ViewModels\Regions\AccountAudit\AccountAuditRegion.cs" />
     <Compile Include="ViewModels\Interfaces\IShellViewModel.cs" />
     <Compile Include="Utility\DelegateCommand.cs" />
     <Compile Include="ViewModels\BalanceViewModel.cs" />
+    <Compile Include="ViewModels\Regions\AccountDailyBalance\IAccountDailyBalanceRegion.cs" />
     <Compile Include="ViewModels\Regions\CreateAccount\CreateAccountRegion.cs" />
+    <Compile Include="ViewModels\Regions\CreateAccount\ICreateAccountRegion.cs" />
     <Compile Include="ViewModels\Shell\ApplicationShellViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ViewModelBase.cs" />
     <Page Include="Views\Shell\ApplicationShellView.xaml">

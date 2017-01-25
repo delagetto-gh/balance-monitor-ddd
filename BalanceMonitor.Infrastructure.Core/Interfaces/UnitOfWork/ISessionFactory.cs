@@ -2,8 +2,8 @@
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork
 {
-  public interface ISession : IDisposable
+  public interface ISessionFactory
   {
-    void Commit();
+    TSession Open<TSession>() where TSession : ISession;
   }
 }

@@ -10,21 +10,22 @@ namespace BalanceMonitor.Accounting.Domain.Services
 {
   public class AccountRepository : IAccountRepository
   {
-    private readonly ISession<BalanceMonitorAccountingContext> session;
+    private readonly ISessionFactory session;
 
-    public AccountRepository(ISession<BalanceMonitorAccountingContext> session)
+    public AccountRepository(ISessionFactory session)
     {
       this.session = session;
     }
 
     public Account Get(Guid id)
     {
-      Account agg = new Account();
-      using (var ctx = this.session.Open())
+      Account agg = null;
+      using (var ctx = this.session.Open<BalanceMonitorAccountingSession>())
       {
-        IEnumerable<IVersionedDomainEvent> events = ctx.Events.Where(evt => evt.AggregateId == id).OfType<IVersionedDomainEvent>();
+        IEnumerable<VersionedDomainEvent> events = ctx.Events.Where(evt => evt.AggregateId == id);
         if (events.Any())
         {
+          agg = new Account();
           agg.LoadFromHistory(events);
         }
         ctx.Commit();
@@ -34,7 +35,7 @@ namespace BalanceMonitor.Accounting.Domain.Services
 
     public void Add(Account aggregate)
     {
-      using (var ctx = this.session.Open())
+      using (var ctx = this.session.Open<BalanceMonitorAccountingSession>())
       {
         ///Don't save the entity if it hasnt had any changes applied to it.
         if (aggregate.UncommitedChanges.Any())
@@ -42,22 +43,21 @@ namespace BalanceMonitor.Accounting.Domain.Services
           if (aggregate.Version != -1) //its not a new aggregate
           {
             var eventStoredAggregate = this.Get(aggregate.Id);
-            if (aggregate.Version == eventStoredAggregate.Version)
-            {
-              int currentVersion = aggregate.Version;
-              foreach (var @event in aggregate.UncommitedChanges)
-              {
-                currentVersion++; //local increment based off entity's starting version
-                @event.Version = currentVersion; //set the event version to it
-                aggregate.Version = currentVersion;
-                ctx.Events.Add(@event);
-              }
-            }
-            else
+            if (aggregate.Version != eventStoredAggregate.Version)
             {
               throw new Exception(String.Format("Optimistic Concurrency! Aggregate {0} version inconsistency. Aggregate has been modified", aggregate.GetType()));
             }
           }
+
+          int currentVersion = aggregate.Version;
+          foreach (var @event in aggregate.UncommitedChanges)
+          {
+            currentVersion++; //local increment based off entity's starting version
+            @event.Version = currentVersion; //set the event version to it
+            aggregate.Version = currentVersion;
+            ctx.Events.Add(@event);
+          }
+
           ctx.Commit(); //ctx.commit() behind the scenes will 1)store to eventstore 2)also publish events to handlers!)
         }
       }

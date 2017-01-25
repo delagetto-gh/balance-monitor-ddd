@@ -5,6 +5,7 @@ using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BalanceMonitor.Accounting.Application.Projections
 {
@@ -14,79 +15,101 @@ namespace BalanceMonitor.Accounting.Application.Projections
                                           IEventHandler<AmountWithdrawalEvent>
   {
     private readonly ILogger logger;
-    private readonly ISession<AccountAuditInMemoryContext> session;
+    private readonly ISessionFactory sessionFactory;
 
-    public AccountAuditDenormaliser(ISession<AccountAuditInMemoryContext> session, ILogger log)
+    public AccountAuditDenormaliser(ISessionFactory sessionFactory, ILogger log)
     {
       this.logger = log;
-      this.session = session;
+      this.sessionFactory = sessionFactory;
+    }
+
+    public IEnumerable<AccountAudit> GetAuditOnDate(DateTime date)
+    {
+      IEnumerable<AccountAudit> result;
+      using (var ctx = this.sessionFactory.Open<AccountAuditSession>())
+      {
+        result = ctx.AccountAudits.Where(o => o.Time.Date == date.Date).ToList();
+      }
+      return result;
     }
 
     public void Handle(AmountDepositedEvent @event)
     {
       this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
 
-      //var session = this.sessionFactory.Create<BalanceMonitorEFSession>();
-      //using (var ctx = session.Open())
-      //{
-      //  AccountAudit acc = ctx.Find(@event.AggregateId);
-      //  if (acc != null)
-      //  {
-      //    AccountAudit accAudit = new AccountAudit
-      //    {
-      //      AccountId = acc.AccountId,
-      //      AccountName = acc.Name,
-      //      ActivityType = "Amount Deposited",
-      //      Amount = @event.Amount.Amount,
-      //      Currency = @event.Amount.Currency,
-      //      Time = @event.Created
-      //    };
-      //    ctx.AccountAudits.Add(accAudit);
-      //    ctx.SaveChanges();
-      //  }
-      //  else
-      //  {
-      //    throw new Exception(String.Format("Account does not exist! Id: {0}", @event.AggregateId));
-      //  }
-      //}
+      using (var ctx = this.sessionFactory.Open<AccountAuditSession>())
+      {
+        var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);
+        if (account != null)
+        {
+          AccountAudit accAudit = new AccountAudit
+          {
+            AccountId = @event.AggregateId,
+            AccountName = @event.AccountName,
+            Action = "Amount Deposited",
+            Time = @event.Created
+          };
+          ctx.AccountAudits.Add(accAudit);
+          ctx.Commit();
+        }
+        else
+        {
+          throw new Exception(String.Format("Account does not exist! Id: {0}", @event.AggregateId));
+        }
+      }
     }
 
     public void Handle(AmountWithdrawalEvent @event)
     {
-      //this.logger.Log(String.Format("Account withdrawl event @ {0}", DateTimeOffset.Now));
+      this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
 
-      //using (var ctx = this.CreateSession())
-      //{
-      //  Account acc = ctx.AccountDailyBalance.Find(@event.AggregateId);
-      //  if (acc != null)
-      //  {
-      //    AccountAudit accAudit = new AccountAudit
-      //    {
-      //      AccountId = acc.AccountId,
-      //      AccountName = acc.Name,
-      //      ActivityType = "Amount Withdrawn",
-      //      Amount = @event.Amount.Amount,
-      //      Currency = @event.Amount.Currency,
-      //      Time = @event.Created
-      //    };
-      //    ctx.AccountAudits.Add(accAudit);
-      //    ctx.SaveChanges();
-      //  }
-      //  else
-      //  {
-      //    throw new Exception(String.Format("Account does not exist! Id: {0}", @event.AggregateId));
-      //  }
-      //}
+      using (var ctx = this.sessionFactory.Open<AccountAuditSession>())
+      {
+        var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);
+        if (account != null)
+        {
+          AccountAudit accAudit = new AccountAudit
+          {
+            AccountId = @event.AggregateId,
+            AccountName = @event.AccountName,
+            Action = "Amount Withdrawn",
+            Time = @event.Created
+          };
+          ctx.AccountAudits.Add(accAudit);
+          ctx.Commit();
+        }
+        else
+        {
+          throw new Exception(String.Format("Account does not exist! Id: {0}", @event.AggregateId));
+        }
+      }
     }
 
     public void Handle(AccountCreatedEvent @event)
     {
-      throw new NotImplementedException();
+      this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
+
+      using (var ctx = this.sessionFactory.Open<AccountAuditSession>())
+      {
+        var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);
+        if (account == null)
+        {
+          AccountAudit accAudit = new AccountAudit
+          {
+            AccountId = @event.AggregateId,
+            AccountName = @event.AccountName,
+            Action = "Account Created",
+            Time = @event.Created
+          };
+          ctx.AccountAudits.Add(accAudit);
+          ctx.Commit();
+        }
+        else
+        {
+          throw new Exception(String.Format("Account does not exist! Id: {0}", @event.AggregateId));
+        }
+      }
     }
 
-    public IEnumerable<AccountDailyBalance> GetAuditForAccountOnDate(Guid accId, DateTime date)
-    {
-      throw new NotImplementedException();
-    }
   }
 }

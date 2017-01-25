@@ -1,7 +1,7 @@
-﻿using BalanceMonitor.Accounting;
-using BalanceMonitor.Accounting.Application.Commands;
+﻿using BalanceMonitor.Accounting.Application.Commands;
 using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
 using BalanceMonitor.Utility;
+using BalanceMonitor.ViewModels.Regions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,50 +9,60 @@ using WpfCommands = System.Windows.Input;
 
 namespace BalanceMonitor.ViewModels
 {
-  public class CreateAccountRegion : ViewModelBase
+  public class CreateAccountRegion : ViewModelBase, ICreateAccountRegion
   {
     private readonly IAccountingService accSvc;
+
+    private decimal balanceAmount;
+    private string balanceCcy;
+    private string accountName;
 
     public CreateAccountRegion(IAccountingService accSvc)
     {
       this.accSvc = accSvc;
       this.Balance = new ObservableCollection<BalanceViewModel>();
-      this.AddNewBalanceCommand = new DelegateCommand((_) => this.Balance.Add(new BalanceViewModel(this.NewBalanceCurrency, this.NewBalanceAmount)), (_) => !String.IsNullOrWhiteSpace(this.NewBalanceCurrency) && !this.Balance.Any(b => b.Currency == this.NewBalanceCurrency));
+      this.AddNewBalanceCommand = new DelegateCommand((_) => this.Balance.Add(new BalanceViewModel(this.BalanceCurrency, this.BalanceAmount)), (_) => !String.IsNullOrWhiteSpace(this.BalanceCurrency) && !this.Balance.Any(b => b.Currency == this.BalanceCurrency));
       this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Submit(new CreateAccountCommand(Guid.NewGuid(), this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
     }
 
-    private string name;
     public string Name
     {
-      get { return this.name; }
+      get
+      {
+        return this.accountName;
+      }
       set
       {
-        this.name = value;
+        this.accountName = value;
         this.RaisePropertyChangedEvent("Name");
       }
     }
 
     public ObservableCollection<BalanceViewModel> Balance { get; private set; }
 
-    private string newBalanceCcy;
-    public string NewBalanceCurrency
+    public string BalanceCurrency
     {
-      get { return newBalanceCcy; }
+      get
+      {
+        return balanceCcy;
+      }
       set
       {
-        newBalanceCcy = value;
-        this.RaisePropertyChangedEvent("NewBalanceCurrency");
+        balanceCcy = value;
+        this.RaisePropertyChangedEvent("BalanceCurrency");
       }
     }
 
-    private decimal newBalanceAmount;
-    public decimal NewBalanceAmount
+    public decimal BalanceAmount
     {
-      get { return newBalanceAmount; }
+      get
+      {
+        return balanceAmount;
+      }
       set
       {
-        newBalanceAmount = value;
-        this.RaisePropertyChangedEvent("NewBalanceAmount");
+        balanceAmount = value;
+        this.RaisePropertyChangedEvent("BalanceAmount");
       }
     }
 

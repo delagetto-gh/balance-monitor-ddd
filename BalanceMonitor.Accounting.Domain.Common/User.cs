@@ -1,5 +1,7 @@
-﻿namespace BalanceMonitor.Accounting.Domain.Common
+﻿using System.Runtime.Serialization;
+namespace BalanceMonitor.Accounting.Domain.Common
 {
+  [DataContract]
   public class User
   {
     public User(string name)

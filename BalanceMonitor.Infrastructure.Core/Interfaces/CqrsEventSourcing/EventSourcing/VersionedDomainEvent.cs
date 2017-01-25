@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
+  [DataContract]
   public abstract class VersionedDomainEvent : IVersionedDomainEvent
   {
     protected VersionedDomainEvent(Guid aggregateId)

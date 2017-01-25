@@ -1,22 +1,23 @@
-﻿namespace BalanceMonitor.ViewModels.Shell
+﻿using BalanceMonitor.ViewModels.Regions;
+namespace BalanceMonitor.ViewModels.Shell
 {
   public class ApplicationShellViewModel : ViewModelBase, IShellViewModel
   {
-    private readonly CreateAccountRegion createNewAccountSection;
-    private readonly AccountAuditRegion accountAuditSection;
+    private readonly ICreateAccountRegion createNewAccountSection;
+    private readonly IAccountAuditRegion accountAuditSection;
 
-    public ApplicationShellViewModel(AccountAuditRegion accountListingsSection, CreateAccountRegion createNewAccountSection)
+    public ApplicationShellViewModel(IAccountAuditRegion accountListingsSection, ICreateAccountRegion createNewAccountSection)
     {
       this.createNewAccountSection = createNewAccountSection;
       this.accountAuditSection = accountListingsSection;
     }
 
-    public CreateAccountRegion CreateNewAccountSection
+    public ICreateAccountRegion CreateNewAccountSection
     {
       get { return this.createNewAccountSection; }
     }
 
-    public AccountAuditRegion AccountListingsSection
+    public IAccountAuditRegion AccountListingsSection
     {
       get { return this.accountAuditSection; }
     }

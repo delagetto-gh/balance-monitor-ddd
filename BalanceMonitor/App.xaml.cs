@@ -1,4 +1,7 @@
-﻿using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+﻿using BalanceMonitor.Accounting.Application.Commands;
+using BalanceMonitor.Accounting.Application.Projections;
+using BalanceMonitor.Accounting.Application.Projections.Interfaces;
+using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
 using BalanceMonitor.Accounting.Domain.Services;
 using BalanceMonitor.Infrastructure.Core;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
@@ -8,6 +11,8 @@ using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using BalanceMonitor.Infrastructure.Core.Logging;
 using BalanceMonitor.Infrastructure.Interfaces.Ioc;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
+using BalanceMonitor.ViewModels;
+using BalanceMonitor.ViewModels.Regions;
 using BalanceMonitor.ViewModels.Shell;
 using System.Windows;
 using System.Windows.Threading;
@@ -21,11 +26,11 @@ namespace BalanceMonitor
   {
     public App()
     {
-      this.DispatcherUnhandledException += AppDispatcherUnhandledException;
+      this.DispatcherUnhandledException += OnAppicationUnhandledException;
       this.Startup += OnApplicationStartup;
     }
 
-    private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void OnAppicationUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
       MessageBox.Show(e.Exception.Message);
       e.Handled = true;
@@ -33,7 +38,7 @@ namespace BalanceMonitor
 
     private void OnApplicationStartup(object sender, StartupEventArgs e)
     {
-      IContainer container = new UnityWrappedIoc(new Microsoft.Practices.Unity.UnityContainer());
+      IContainer container = new BalanceMonitorIoc(new Microsoft.Practices.Unity.UnityContainer());
       container.RegisterInstance<IContainer>(container);
 
       this.RegisterApplicationInfrastructure(container);
@@ -44,7 +49,6 @@ namespace BalanceMonitor
       Application.Current.MainWindow.DataContext = container.Resolve<IShellViewModel>();
       Application.Current.MainWindow.Show();
     }
-
 
     private void RegisterApplicationInfrastructure(IContainer container)
     {
@@ -57,15 +61,27 @@ namespace BalanceMonitor
       //register eventPublisher
       container.Register<IDomainEvents, BalanceMonitorDomainEvents>();
 
-      //register sessionCtx
-      container.Register<ISession<BalanceMonitorAccountingContext>, BalanceMonitorAccountingContext>();
+      //register sessionFactory
+      container.Register<ISessionFactory, BalanceMonitorSessionFactory>();
 
-      //registee database repositories
+      //register sessions
+      container.Register<BalanceMonitorAccountingSession>();
+      container.Register<AccountDailyBalanceSession>();
+      container.Register<AccountAuditSession>();
+
+      //registee domain repositories
       container.Register<IAccountRepository, AccountRepository>();
 
       //register cmd Bus
       container.Register<ICommandBus, BalanceMonitorTransactionCommandBus>();
-      //register
+
+      //register eventHandlers / queryHandlers
+      container.Register<IAccountDailyBalanceQuerier, AccountDailyBalanceDenormaliser>();
+      container.Register<IAccountAuditQuerier, AccountAuditDenormaliser>();
+
+      //registeer command handler(s)
+      container.Register<ICommandHandler<CreateAccountCommand>, BalanceMonitorAccountingCommandHandler>();
+      container.Register<ICommandHandler<HelloWorldCommand>, BalanceMonitorAccountingCommandHandler>();
 
     }
 
@@ -76,8 +92,9 @@ namespace BalanceMonitor
 
     private void RegisterApplicationShell(IContainer container)
     {
+      container.Register<ICreateAccountRegion, CreateAccountRegion>();
+      container.Register<IAccountAuditRegion, AccountAuditRegion>();
       container.Register<IShellViewModel, ApplicationShellViewModel>();
     }
-
   }
 }

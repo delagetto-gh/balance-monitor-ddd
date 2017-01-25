@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BalanceMonitor.Infrastructure.Interfaces.EventSourcing
+namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public abstract class EventSourced : IEventSourced
   {

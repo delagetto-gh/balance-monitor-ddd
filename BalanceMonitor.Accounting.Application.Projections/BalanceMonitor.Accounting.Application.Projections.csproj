@@ -40,13 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Denormalisers\AccountAudit\AccountAuditInMemoryContext.cs" />
     <Compile Include="Denormalisers\AccountAudit\AccountAudit.cs" />
     <Compile Include="Denormalisers\AccountDailyBalance\AccountDailyBalance.cs" />
-    <Compile Include="Denormalisers\AccountDailyBalance\AccountDailyBalanceEfDenormaliser.cs" />
-    <Compile Include="Denormalisers\AccountAudit\AccountAuditEfDenormaliser.cs" />
+    <Compile Include="Denormalisers\AccountDailyBalance\AccountDailyBalanceContext.cs" />
+    <Compile Include="Denormalisers\AccountDailyBalance\AccountDailyBalanceDenormaliser.cs" />
+    <Compile Include="Denormalisers\AccountAudit\AccountAuditDenormaliser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\IAccountAuditService.cs" />
-    <Compile Include="Interfaces\IAccountDailyBalanceService.cs" />
+    <Compile Include="Interfaces\IAccountAuditQuerier.cs" />
+    <Compile Include="Interfaces\IAccountDailyBalanceQuerier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Events\BalanceMonitor.Accounting.Domain.Events.csproj">

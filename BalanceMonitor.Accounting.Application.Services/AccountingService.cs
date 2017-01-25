@@ -1,7 +1,6 @@
-﻿using BalanceMonitor.Accounting.Application.Commands;
-using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Domain.Events;
-using BalanceMonitor.Infrastructure.Interfaces.Cqrs;
+﻿using BalanceMonitor.Accounting.Application.Projections;
+using BalanceMonitor.Accounting.Application.Projections.Interfaces;
+using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using System;
 using System.Collections.Generic;
 
@@ -10,44 +9,37 @@ namespace BalanceMonitor.Accounting.Application.Services.ApplicationServices
   public class AccountingService : IAccountingService
   {
     private readonly ICommandBus cmdBus;
-    public AccountingService(ICommandBus cmdBus)
+    private readonly IAccountDailyBalanceQuerier accDailyBalanceService;
+    private readonly IAccountAuditQuerier accAuditService;
+
+    public AccountingService(ICommandBus cmdBus, IAccountDailyBalanceQuerier accDailyBalanceService, IAccountAuditQuerier accAuditService)
     {
       this.cmdBus = cmdBus;
+      this.accDailyBalanceService = accDailyBalanceService;
+      this.accAuditService = accAuditService;
     }
 
-    public void HandleCommand(CreateAccountCommand cmd)
+    public void Submit<TCommand>(TCommand cmd) where TCommand : ICommand
     {
+      if (cmd == null)
+        return;
+
       this.cmdBus.Submit(cmd);
     }
 
     public IEnumerable<AccountDailyBalance> GetAccountBalanceOn(DateTime date)
     {
-      throw new System.NotImplementedException();
+      return this.accDailyBalanceService.GetAccountBalanceOn(date);
     }
 
     public IEnumerable<AccountDailyBalance> GetAccountBalanceOn(Guid accId, DateTime date)
     {
-      throw new System.NotImplementedException();
-    }
-
-    public void Handle(AccountCreatedEvent @event)
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public void Handle(AmountDepositedEvent @event)
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public void Handle(AmountWithdrawalEvent @event)
-    {
-      throw new System.NotImplementedException();
+      return this.accDailyBalanceService.GetAccountBalanceOn(accId, date);
     }
 
     public IEnumerable<AccountDailyBalance> GetAuditForAccountOnDate(Guid accId, DateTime date)
     {
-      throw new NotImplementedException();
+      return this.accAuditService.GetAuditForAccountOnDate(accId, date);
     }
   }
 }

@@ -1,26 +1,24 @@
-﻿using BalanceMonitor.Infrastructure.Interfaces.Ioc;
-
-namespace BalanceMonitor.ViewModels.Shell
+﻿namespace BalanceMonitor.ViewModels.Shell
 {
   public class ApplicationShellViewModel : ViewModelBase, IShellViewModel
   {
-    private readonly ViewModelBase createNewAccountSection;
-    private readonly ViewModelBase accountListingsSection;
+    private readonly CreateAccountRegion createNewAccountSection;
+    private readonly AccountAuditRegion accountAuditSection;
 
-    public ApplicationShellViewModel(IContainer iocContainer)
+    public ApplicationShellViewModel(AccountAuditRegion accountListingsSection, CreateAccountRegion createNewAccountSection)
     {
-      this.createNewAccountSection = iocContainer.Resolve<CreateAccountRegion>();
-      this.accountListingsSection = iocContainer.Resolve<AccountAuditRegion>();
+      this.createNewAccountSection = createNewAccountSection;
+      this.accountAuditSection = accountListingsSection;
     }
 
-    public ViewModelBase CreateNewAccountSection
+    public CreateAccountRegion CreateNewAccountSection
     {
       get { return this.createNewAccountSection; }
     }
 
-    public ViewModelBase AccountListingsSection
+    public AccountAuditRegion AccountListingsSection
     {
-      get { return this.accountListingsSection; }
+      get { return this.accountAuditSection; }
     }
   }
 }

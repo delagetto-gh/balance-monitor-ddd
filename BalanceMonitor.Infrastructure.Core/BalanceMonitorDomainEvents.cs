@@ -9,40 +9,15 @@ using System.Threading.Tasks;
 
 namespace BalanceMonitor.Infrastructure.Core
 {
-  /// <summary>
-  /// For conveience, the DomainEvents publisher is also the command bus
-  /// </summary>
-  public class DomainEvents : ICommandBus, IDomainEvents
+  public class BalanceMonitorDomainEvents : IDomainEvents
   {
     private readonly ILogger logger;
     private readonly IContainer container;
 
-    public DomainEvents(IContainer container, ILogger logger)
+    public BalanceMonitorDomainEvents(IContainer container, ILogger logger)
     {
       this.container = container;
       this.logger = logger;
-    }
-
-    public void Submit<TCommand>(TCommand cmd) where TCommand : ICommand
-    {
-      if (cmd == null)
-        return;
-
-      var handler = this.container.Resolve<ICommandHandler<TCommand>>();
-      if (handler != null)
-      {
-        using (var tx = new System.Transactions.TransactionScope())
-        {
-          handler.HandleCommand(cmd);
-          tx.Complete();
-        }
-      }
-      else
-      {
-        var ex = new Exception(String.Format("Invalid Command Request - either supplied command is null or no handler for [{0}] command exists!", typeof(TCommand)));
-        this.logger.Log(ex.Message);
-        throw ex;
-      }
     }
 
     public async void Publish<TEvent>(TEvent @event) where TEvent : IDomainEvent

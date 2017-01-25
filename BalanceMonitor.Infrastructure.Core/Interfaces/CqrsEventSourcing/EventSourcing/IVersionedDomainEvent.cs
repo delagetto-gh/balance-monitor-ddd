@@ -1,7 +1,7 @@
 ﻿using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
 using System;
 
-namespace BalanceMonitor.Infrastructure.Interfaces.EventSourcing
+namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public interface IVersionedDomainEvent : IDomainEvent
   {

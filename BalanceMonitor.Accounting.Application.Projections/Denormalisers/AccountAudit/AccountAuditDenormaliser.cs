@@ -1,21 +1,25 @@
 ﻿using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Accounting.Domain.Events;
+using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
+using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
-using BalanceMonitor.Infrastructure.Interfaces.UnitOfWork;
 using System;
 using System.Collections.Generic;
 
 namespace BalanceMonitor.Accounting.Application.Projections
 {
-  public class AccountAuditEfDenormaliser : IAccountAuditService
+  public class AccountAuditDenormaliser : IAccountAuditQuerier,
+                                          IEventHandler<AccountCreatedEvent>,
+                                          IEventHandler<AmountDepositedEvent>,
+                                          IEventHandler<AmountWithdrawalEvent>
   {
     private readonly ILogger logger;
-    private readonly ISessionFactory sessionFactory;
+    private readonly ISession<AccountAuditInMemoryContext> session;
 
-    public AccountAuditEfDenormaliser(ISessionFactory sessionFactory, ILogger log)
+    public AccountAuditDenormaliser(ISession<AccountAuditInMemoryContext> session, ILogger log)
     {
       this.logger = log;
-      this.sessionFactory = sessionFactory;
+      this.session = session;
     }
 
     public void Handle(AmountDepositedEvent @event)

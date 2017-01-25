@@ -138,6 +138,10 @@
       <Project>{c8178453-0433-4dc8-b6ef-db344b3eeb3a}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Services\BalanceMonitor.Accounting.Domain.Services.csproj">
+      <Project>{ba2eda14-8e7c-4a56-b304-1ea7e15799f6}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting\BalanceMonitor.Accounting.csproj">
       <Project>{87e2cd7f-fbfc-43ec-a471-da6f88346608}</Project>
       <Name>BalanceMonitor.Accounting</Name>

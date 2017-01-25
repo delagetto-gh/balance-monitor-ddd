@@ -1,5 +1,6 @@
 ﻿using BalanceMonitor.Accounting;
 using BalanceMonitor.Accounting.Application.Commands;
+using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
 using BalanceMonitor.Utility;
 using System;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ namespace BalanceMonitor.ViewModels
       this.accSvc = accSvc;
       this.Balance = new ObservableCollection<BalanceViewModel>();
       this.AddNewBalanceCommand = new DelegateCommand((_) => this.Balance.Add(new BalanceViewModel(this.NewBalanceCurrency, this.NewBalanceAmount)), (_) => !String.IsNullOrWhiteSpace(this.NewBalanceCurrency) && !this.Balance.Any(b => b.Currency == this.NewBalanceCurrency));
-      this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Command.SendCommand(new CreateAccountCommand(Guid.NewGuid(), this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
+      this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Submit(new CreateAccountCommand(Guid.NewGuid(), this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
     }
 
     private string name;

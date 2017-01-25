@@ -1,14 +1,14 @@
 ﻿using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Database.Ef;
+using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
 using System.Collections.ObjectModel;
 
 namespace BalanceMonitor.ViewModels
 {
   public class AccountAuditRegion : ViewModelBase
   {
-    private readonly IAccountingQueryService accountingService;
+    private readonly IAccountingService accountingService;
 
-    public AccountAuditRegion(IAccountingQueryService accountingService)
+    public AccountAuditRegion(IAccountingService accountingService)
     {
       this.AccountAudits = new ObservableCollection<AccountAudit>();
       this.accountingService = accountingService;

@@ -1,13 +1,14 @@
 ﻿using BalanceMonitor.Accounting.Domain.Common;
 using BalanceMonitor.Accounting.Domain.Events;
-using BalanceMonitor.Infrastructure.Interfaces.EventSourcing;
+using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
+using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
 using System.Collections.Generic;
 
 
 namespace BalanceMonitor.Accounting.Domain.Model
 {
-  public class Account : EventSourced
+  public class Account : EventSourced, IAggregateRoot
   {
     private List<Money> balance;
     private string name;

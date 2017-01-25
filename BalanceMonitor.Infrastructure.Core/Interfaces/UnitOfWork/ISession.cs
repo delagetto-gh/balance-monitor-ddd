@@ -2,7 +2,7 @@
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork
 {
-  public interface ISession<TContext> where TContext : IDisposable
+  public interface ISession<TContext> : IDisposable
   {
     TContext Open();
 

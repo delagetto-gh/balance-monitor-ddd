@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BalanceMonitor.Infrastructure.Interfaces.EventSourcing
+namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public interface IEventSourced
   {

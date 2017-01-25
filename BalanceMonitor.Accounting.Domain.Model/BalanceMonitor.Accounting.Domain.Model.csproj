@@ -57,6 +57,10 @@
       <Project>{f250712e-418a-4b71-9731-09d180f0aa7c}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
+      <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
+      <Name>BalanceMonitor.Infrastructure.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

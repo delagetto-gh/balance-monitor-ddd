@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -57,7 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainEvents.cs" />
+    <Compile Include="BalanceMonitorTransactionCommandBus.cs" />
+    <Compile Include="BalanceMonitorXmlEventStore.cs" />
+    <Compile Include="BalanceMonitorDomainEvents.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommand.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandBus.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandHandler.cs" />
@@ -76,13 +79,8 @@
     <Compile Include="Interfaces\Ioc\IContainer.cs" />
     <Compile Include="Interfaces\Logging\ILogger.cs" />
     <Compile Include="Interfaces\UnitOfWork\ISession.cs" />
-    <Compile Include="Interfaces\UnitOfWork\ISessionFactory.cs" />
     <Compile Include="Logging\DebugLogger.cs" />
     <Compile Include="Logging\FileSystemLogger.cs" />
-    <Compile Include="BalanceMonitorSession.cs" />
-    <Compile Include="BalanceMonitorSessionFactory.cs" />
-    <Compile Include="EventSourcedAggregateRootRepository.cs" />
-    <Compile Include="EventStoreMsSql.cs" />
     <Compile Include="UnityWrappedIoc.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

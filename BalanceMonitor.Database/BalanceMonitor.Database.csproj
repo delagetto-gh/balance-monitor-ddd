@@ -7,8 +7,8 @@
     <ProjectGuid>{E67D3350-A8F9-460F-ADD1-442253A6612D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BalanceMonitor.Database.Ef</RootNamespace>
-    <AssemblyName>BalanceMonitor.Database.Ef</AssemblyName>
+    <RootNamespace>BalanceMonitor.Database</RootNamespace>
+    <AssemblyName>BalanceMonitor.Database</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -79,6 +79,7 @@
   <ItemGroup>
     <None Include="BalanceMonitorXmlEventStore.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

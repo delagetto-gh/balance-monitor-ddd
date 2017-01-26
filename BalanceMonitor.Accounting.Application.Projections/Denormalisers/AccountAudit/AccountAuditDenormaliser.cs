@@ -97,7 +97,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
           AccountAudit accAudit = new AccountAudit
           {
             AccountId = @event.AggregateId,
-            AccountName = @event.AccountName,
+            AccountName = @event.Name,
             Action = "Account Created",
             Time = @event.Created
           };

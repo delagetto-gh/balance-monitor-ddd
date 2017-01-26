@@ -2,6 +2,7 @@
 using BalanceMonitor.Accounting.Application.Projections;
 using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+using BalanceMonitor.Accounting.Domain.Events;
 using BalanceMonitor.Accounting.Domain.Services;
 using BalanceMonitor.Infrastructure.Core;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
@@ -14,6 +15,8 @@ using BalanceMonitor.Infrastructure.Interfaces.Logging;
 using BalanceMonitor.ViewModels;
 using BalanceMonitor.ViewModels.Regions;
 using BalanceMonitor.ViewModels.Shell;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -58,6 +61,10 @@ namespace BalanceMonitor
       //register eventstore
       container.Register<IEventStore, BalanceMonitorXmlEventStore>();
 
+      container.Register<IEventHandler<AccountCreatedEvent>, AccountAuditDenormaliser>();
+      //container.Register<IEventHandler<AmountDepositedEvent>, AccountAuditDenormaliser>();
+      //container.Register<IEventHandler<AmountWithdrawalEvent>, AccountAuditDenormaliser>();
+
       //register eventPublisher
       container.Register<IDomainEvents, BalanceMonitorDomainEvents>();
 
@@ -65,7 +72,6 @@ namespace BalanceMonitor
       container.Register<ISessionFactory, BalanceMonitorSessionFactory>();
 
       //register sessions
-      container.Register<BalanceMonitorAccountingSession>();
       container.Register<AccountDailyBalanceSession>();
       container.Register<AccountAuditSession>();
 
@@ -73,7 +79,7 @@ namespace BalanceMonitor
       container.Register<IAccountRepository, AccountRepository>();
 
       //register cmd Bus
-      container.Register<ICommandBus, BalanceMonitorTransactionCommandBus>();
+      container.Register<ICommandBus, BalanceMonitorTransactionScopeCommandBus>();
 
       //register eventHandlers / queryHandlers
       container.Register<IAccountDailyBalanceQuerier, AccountDailyBalanceDenormaliser>();
@@ -83,6 +89,16 @@ namespace BalanceMonitor
       container.Register<ICommandHandler<CreateAccountCommand>, BalanceMonitorAccountingCommandHandler>();
       container.Register<ICommandHandler<HelloWorldCommand>, BalanceMonitorAccountingCommandHandler>();
 
+
+      //var eventHandlerAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(o => o.GetTypes().Any(t => typeof(IEventHandler<>).IsAssignableFrom(t)));
+      //foreach (var assembly in eventHandlerAssemblies)
+      //{
+      //  var eventHandlerTypes = assembly.GetTypes().Where(o => typeof(IEventHandler<>).IsAssignableFrom(o));
+      //  foreach (var evtHlr in eventHandlerTypes)
+      //  {
+      //     container.RegisterInstance<I
+      //  }
+      //}
     }
 
     private void RegisterApplicationServies(IContainer container)

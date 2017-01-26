@@ -12,8 +12,6 @@ namespace BalanceMonitor.Infrastructure.Interfaces.Ioc
 
     void Register<TInterface, TClass>() where TClass : TInterface;
 
-    void Register<TInterface, TClass>(string keyName) where TClass : TInterface;
-
     void RegisterInstance<TInterface>(TInterface inst);
   }
 }

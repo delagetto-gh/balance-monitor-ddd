@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BalanceMonitorSessionFactory.cs" />
-    <Compile Include="BalanceMonitorTransactionCommandBus.cs" />
+    <Compile Include="BalanceMonitorTransactionScopeCommandBus.cs" />
     <Compile Include="BalanceMonitorXmlEventStore.cs" />
     <Compile Include="BalanceMonitorDomainEvents.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommand.cs" />
@@ -69,8 +69,7 @@
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\EventSourced.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventSourced.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventStore.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IVersionedDomainEvent.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\VersionedDomainEvent.cs" />
+    <Compile Include="Interfaces\DDD\Events\DomainEvent.cs" />
     <Compile Include="Interfaces\DDD\Aggregates\IAggregateRoot.cs" />
     <Compile Include="Interfaces\DDD\Aggregates\IEntity.cs" />
     <Compile Include="Interfaces\DDD\Events\IDomainEvent.cs" />
@@ -88,12 +87,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\BalanceMonitor.Database.Ef\BalanceMonitor.Database.Ef.csproj">
-      <Project>{e67d3350-a8f9-460f-add1-442253a6612d}</Project>
-      <Name>BalanceMonitor.Database.Ef</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

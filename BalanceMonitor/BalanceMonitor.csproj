@@ -149,10 +149,6 @@
       <Project>{87e2cd7f-fbfc-43ec-a471-da6f88346608}</Project>
       <Name>BalanceMonitor.Accounting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Database.Ef\BalanceMonitor.Database.Ef.csproj">
-      <Project>{e67d3350-a8f9-460f-add1-442253a6612d}</Project>
-      <Name>BalanceMonitor.Database.Ef</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
       <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
       <Name>BalanceMonitor.Infrastructure.Core</Name>

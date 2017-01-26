@@ -33,11 +33,6 @@ namespace BalanceMonitor.Infrastructure.Core
       this.ulUnityContainer.RegisterType<TInterface, TClass>(new ContainerControlledLifetimeManager()); ///ContainerControlledLifetimeManager => Singleton
     }
 
-    public void Register<TInterface, TClass>(string keyName) where TClass : TInterface
-    {
-      this.ulUnityContainer.RegisterType<TInterface, TClass>(keyName, new ContainerControlledLifetimeManager());
-    }
-
     public void RegisterInstance<TInterface>(TInterface inst)
     {
       this.ulUnityContainer.RegisterInstance<TInterface>(inst);

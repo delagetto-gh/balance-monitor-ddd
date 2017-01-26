@@ -59,12 +59,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ServiceHosts\Service1.svc" />
+    <Content Include="ServiceHosts\AccountRepository.svc" />
     <Content Include="ServiceHosts\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
-    <Compile Include="BalanceMonitorAccountingSession.cs" />
+    <Compile Include="EventSourcedRepository.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

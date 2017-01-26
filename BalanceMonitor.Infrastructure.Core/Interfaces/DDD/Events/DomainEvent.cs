@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
+namespace BalanceMonitor.Infrastructure.Core.Interfaces.DDD
 {
-  [DataContract]
-  public abstract class VersionedDomainEvent : IVersionedDomainEvent
+  public abstract class DomainEvent : IDomainEvent
   {
-    protected VersionedDomainEvent(Guid aggregateId)
+    protected DomainEvent(Guid aggregateId)
     {
       this.AggregateId = aggregateId;
       this.Created = DateTime.UtcNow;
     }
 
-    protected VersionedDomainEvent()
+    protected DomainEvent()
     { }
 
     public Guid AggregateId { get; set; }

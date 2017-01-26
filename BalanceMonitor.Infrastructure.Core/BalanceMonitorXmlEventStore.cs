@@ -5,64 +5,94 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Xml;
 
 namespace BalanceMonitor.Infrastructure.Core
 {
   public class BalanceMonitorXmlEventStore : IEventStore
   {
-    private readonly FileStream xmlFileStream;
+    private readonly string xmlFile;
 
     public BalanceMonitorXmlEventStore()
     {
-      this.xmlFileStream = File.Create("BalanceMonitorXmlEventStore.xml");
+      this.xmlFile = "BalanceMonitorXmlEventStore.xml";
     }
 
-    private void SerializeEvents(IEnumerable<VersionedDomainEvent> eventsCollection, FileStream fs)
-    {
-      //var dataContractSerializer = new DataContractSerializer(typeof(IEnumerable<VersionedDomainEvent>));
-      //dataContractSerializer.WriteObject(fs, eventsCollection);
-
-
-      dynamic evt = eventsCollection.First();
-      var dataContractSerializer = new DataContractSerializer(evt.GetType());
-      dataContractSerializer.WriteObject(fs, evt);
-    }
-
-    private IEnumerable<VersionedDomainEvent> DeserializeEvents(FileStream fs)
-    {
-      if (fs.Length > 0)
-      {
-        var xmlDeserializer = new DataContractSerializer(typeof(IEnumerable<VersionedDomainEvent>));
-        var obj = xmlDeserializer.ReadObject(fs) as IEnumerable<VersionedDomainEvent>;
-        if (obj != null)
-        {
-          return obj;
-        }
-        else
-        {
-          throw new Exception("Failed to Deserialize Event Store you muppet");
-        }
-      }
-      else
-      {
-        return new List<VersionedDomainEvent>();
-      }
-    }
-
-    public IEnumerable<VersionedDomainEvent> Events
+    public IEnumerable<IDomainEvent> Events
     {
       get
       {
-        var events = this.DeserializeEvents(this.xmlFileStream);
-        return events;
+        List<IDomainEvent> domainEvents = new List<IDomainEvent>();
+        using (var fs = new FileStream(this.xmlFile, FileMode.OpenOrCreate))
+        {
+          if (fs.Length > 0)
+          {
+            var xmlDeserializer = new DataContractSerializer(typeof(List<SerializableXmlEvent>));
+            var storedEvents = (List<SerializableXmlEvent>)xmlDeserializer.ReadObject(fs);
+            foreach (var xmlEvent in storedEvents)
+            {
+              var xmlEventDeserialzer = new DataContractSerializer(Type.GetType(string.Format("{0}, {1}", xmlEvent.EventType, xmlEvent.Assemblyname)));
+              using (var sr = new StringReader(xmlEvent.Data))
+              using (var xmlReader = new XmlTextReader(sr))
+              {
+                var evt = (IDomainEvent)xmlEventDeserialzer.ReadObject(xmlReader);
+                domainEvents.Add(evt);
+              }
+            }
+          }
+          return domainEvents.OrderBy(o => o.Created);
+        }
       }
     }
 
-    public void Add(VersionedDomainEvent @event)
+    public void Store<TDomainEvent>(IEnumerable<TDomainEvent> events) where TDomainEvent : IDomainEvent
     {
-      var events = new List<VersionedDomainEvent>(this.Events);
-      events.Add(@event);
-      this.SerializeEvents(events, this.xmlFileStream);
+      var domainEvents = new List<IDomainEvent>(this.Events);
+      foreach (var @event in events)
+      {
+        domainEvents.Add(@event);
+      }
+
+      var xmlEvents = new List<SerializableXmlEvent>(domainEvents.Count);
+      foreach (var @event in domainEvents)
+      {
+        var sb = new StringBuilder();
+        using (var xmlWriter = XmlWriter.Create(sb))
+        {
+          var xmlSerializer = new DataContractSerializer(@event.GetType());
+          xmlSerializer.WriteObject(xmlWriter, @event);
+        }
+
+        var xmlEvent = new SerializableXmlEvent
+        {
+          AggregateId = @event.AggregateId,
+          Version = @event.Version,
+          Data = sb.ToString(),
+          EventType = @event.GetType().FullName.ToString(),
+          Assemblyname = @event.GetType().Assembly.FullName,
+        };
+        xmlEvents.Add(xmlEvent);
+      }
+
+      using (var fs = new FileStream(this.xmlFile, FileMode.Create))
+      {
+        var xmlEventSerializer = new DataContractSerializer(typeof(List<SerializableXmlEvent>));
+        xmlEventSerializer.WriteObject(fs, xmlEvents);
+      }
     }
+  }
+
+  public class SerializableXmlEvent
+  {
+    public Guid AggregateId { get; set; }
+
+    public int Version { get; set; }
+
+    public string EventType { get; set; }
+
+    public string Assemblyname { get; set; }
+
+    public string Data { get; set; }
   }
 }

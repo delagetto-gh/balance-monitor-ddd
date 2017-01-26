@@ -20,24 +20,16 @@ namespace BalanceMonitor.Infrastructure.Core
       this.logger = logger;
     }
 
-    public async void Publish<TEvent>(TEvent @event) where TEvent : IDomainEvent
+    public void Publish<TEvent>(TEvent @event) where TEvent : IDomainEvent
     {
       if (@event != null)
       {
         var evtHandlers = this.container.ResolveAll<IEventHandler<TEvent>>();
-        var evtHandlerExecutions = new List<Task>(evtHandlers.Count());
         foreach (var eHdlr in evtHandlers)
         {
           //This is done syncronously right now, but perhaps we could have  an ISyncronousEventHandler<T>...
-          //scratch that - we are doing it syncronously AS A WHOLE, but parallelizing the handler executions
-          //evtHandlerExecutions.Add(Task.Run(() => eHdlr.Handle(@event)));
-
-          //sync for now
           eHdlr.Handle(@event);
         }
-
-        //sync for now
-        //await Task.WhenAll(evtHandlerExecutions);
       }
       else
       {

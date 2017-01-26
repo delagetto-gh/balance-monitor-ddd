@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Accounting.Domain.Common
 {
-  [DataContract]
   public class Money
   {
     public Money(string currency, decimal value)

@@ -3,11 +3,11 @@ using BalanceMonitor.Infrastructure.Interfaces.Ioc;
 
 namespace BalanceMonitor.Infrastructure.Core
 {
-  public class BalanceMonitorTransactionCommandBus : ICommandBus
+  public class BalanceMonitorTransactionScopeCommandBus : ICommandBus
   {
     private readonly IContainer container;
 
-    public BalanceMonitorTransactionCommandBus(IContainer container)
+    public BalanceMonitorTransactionScopeCommandBus(IContainer container)
     {
       this.container = container;
     }

@@ -9,8 +9,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
   /// </summary>
   public interface IEventStore
   {
-    IEnumerable<VersionedDomainEvent> Events { get; }
+    IEnumerable<IDomainEvent> Events { get; }
 
-    void Add(VersionedDomainEvent @event);
+    void Store<TDomainEvent>(IEnumerable<TDomainEvent> @events) where TDomainEvent : IDomainEvent;
   }
 }

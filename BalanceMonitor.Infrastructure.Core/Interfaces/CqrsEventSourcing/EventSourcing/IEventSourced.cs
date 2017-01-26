@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
+using System;
 using System.Collections.Generic;
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
@@ -6,8 +7,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
   public interface IEventSourced
   {
     int Version { get; set; }
-    void LoadFromHistory(IEnumerable<VersionedDomainEvent> events);
+    void LoadFromHistory(IEnumerable<IDomainEvent> events);
     void MarkChangesAsCommitted();
-    IEnumerable<VersionedDomainEvent> UncommitedChanges { get; }
+    IEnumerable<IDomainEvent> UncommitedChanges { get; }
   }
 }

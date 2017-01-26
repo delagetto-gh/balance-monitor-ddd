@@ -28,7 +28,7 @@ namespace BalanceMonitor.Accounting.Application.Commands
         if (acct == null)
         {
           acct = Account.Create(cmd.Identifier, cmd.Name, cmd.Created);
-          this.repository.Add(acct);
+          this.repository.Save(acct);
         }
         else
         {

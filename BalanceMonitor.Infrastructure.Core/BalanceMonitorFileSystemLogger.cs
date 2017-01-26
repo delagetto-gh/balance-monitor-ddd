@@ -4,12 +4,12 @@ using System.IO;
 
 namespace BalanceMonitor.Infrastructure.Core.Logging
 {
-  public class FileSystemLogger : ILogger
+  public class BalanceMonitorFileSystemLogger : ILogger
   {
     private readonly string logFileName;
     private readonly string logFilePath;
 
-    public FileSystemLogger(string dirPath)
+    public BalanceMonitorFileSystemLogger(string dirPath)
     {
       this.logFileName = string.Format("BalanceMonitor_Log_{0}", DateTime.UtcNow.ToString());
       this.logFilePath = dirPath;

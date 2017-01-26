@@ -1,12 +1,10 @@
 ﻿using BalanceMonitor.Accounting.Domain.Common;
-using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
 using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
-using System.Runtime.Serialization;
 
 namespace BalanceMonitor.Accounting.Domain.Events
 {
-  public class AmountWithdrawalEvent : DomainEvent
+  public class AmountWithdrawalEvent : EventSourcedDomainEvent
   {
     public AmountWithdrawalEvent(Guid aggregateId, Money amount)
       : base(aggregateId)
@@ -17,7 +15,7 @@ namespace BalanceMonitor.Accounting.Domain.Events
     /// <summary>
     /// Req for serialization
     /// </summary>
-    private AmountWithdrawalEvent()
+    protected AmountWithdrawalEvent()
     { }
 
     public Money Amount { get; set; }

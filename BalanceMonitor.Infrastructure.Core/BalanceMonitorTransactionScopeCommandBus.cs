@@ -14,13 +14,13 @@ namespace BalanceMonitor.Infrastructure.Core
 
     public void Submit<TCommand>(TCommand cmd) where TCommand : ICommand
     {
-      using (var tx = new System.Transactions.TransactionScope())
+      var cmdHlr = this.container.Resolve<ICommandHandler<TCommand>>();
+      if (cmdHlr != null)
       {
-        var cmdHlr = this.container.Resolve<ICommandHandler<TCommand>>();
-        if (cmdHlr != null)
+        using (var tx = new System.Transactions.TransactionScope())
+        {
           cmdHlr.HandleCommand(cmd);
-
-        tx.Complete();
+        }
       }
     }
   }

@@ -1,8 +1,9 @@
 ﻿using System;
+
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.DDD
 {
-  public interface IAggregateRoot
+  public interface IEvent
   {
-    Guid Id { get; }
+    DateTime DateOccured { get; }
   }
 }

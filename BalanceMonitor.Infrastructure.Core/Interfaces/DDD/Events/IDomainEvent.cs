@@ -2,12 +2,8 @@
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.DDD
 {
-  public interface IDomainEvent
+  public interface IDomainEvent : IEvent
   {
-    int Version { get; set; }
-
     Guid AggregateId { get; }
-
-    DateTime Created { get; }
   }
 }

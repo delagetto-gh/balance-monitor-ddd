@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace BalanceMonitor.Infrastructure.Core.Logging
 {
-  public class DebugLogger : ILogger
+  public class BalanceMonitorDebugLogger : ILogger
   {
     public void Log(string message)
     {

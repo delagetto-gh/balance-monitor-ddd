@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
-  public interface IEventSourced
+  public interface IEventSourced : IAggregateRoot
   {
-    int Version { get; set; }
+    int Version { get; }
     void LoadFromHistory(IEnumerable<IDomainEvent> events);
     void MarkChangesAsCommitted();
     IEnumerable<IDomainEvent> UncommitedChanges { get; }

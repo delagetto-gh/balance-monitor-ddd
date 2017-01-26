@@ -19,46 +19,46 @@ namespace BalanceMonitor.Infrastructure.Core
       this.xmlFile = "BalanceMonitorXmlEventStore.xml";
     }
 
-    public IEnumerable<IDomainEvent> Events
+    public IEnumerable<IEventSourcedDomainEvent> Events
     {
       get
       {
-        List<IDomainEvent> domainEvents = new List<IDomainEvent>();
+        var domainEvents = new List<IEventSourcedDomainEvent>();
         using (var fs = new FileStream(this.xmlFile, FileMode.OpenOrCreate))
         {
           if (fs.Length > 0)
           {
-            var xmlDeserializer = new DataContractSerializer(typeof(List<SerializableXmlEvent>));
-            var storedEvents = (List<SerializableXmlEvent>)xmlDeserializer.ReadObject(fs);
-            foreach (var xmlEvent in storedEvents)
+            var xmlEventsCollectionDeserializer = new DataContractSerializer(typeof(IEnumerable<SerializableXmlEvent>));
+            var xmlEventsCollection = (IEnumerable<SerializableXmlEvent>)xmlEventsCollectionDeserializer.ReadObject(fs);
+            foreach (var xmlEvent in xmlEventsCollection)
             {
-              var xmlEventDeserialzer = new DataContractSerializer(Type.GetType(string.Format("{0}, {1}", xmlEvent.EventType, xmlEvent.Assemblyname)));
-              using (var sr = new StringReader(xmlEvent.Data))
-              using (var xmlReader = new XmlTextReader(sr))
+              using (var xmlReader = new XmlTextReader(new StringReader(xmlEvent.Data)))
               {
-                var evt = (IDomainEvent)xmlEventDeserialzer.ReadObject(xmlReader);
-                domainEvents.Add(evt);
+                var deserializedType = Type.GetType(string.Format("{0}, {1}", xmlEvent.EventType, xmlEvent.AssemblyName)); //Assembly FQN, as events are stored in a separate assembly
+                var xmlEventDeserialzer = new DataContractSerializer(deserializedType);
+                var @event = xmlEventDeserialzer.ReadObject(xmlReader) as IEventSourcedDomainEvent;
+                domainEvents.Add(@event);
               }
             }
           }
-          return domainEvents.OrderBy(o => o.Created);
+          return domainEvents.OrderBy(o => o.DateOccured);
         }
       }
     }
 
-    public void Store<TDomainEvent>(IEnumerable<TDomainEvent> events) where TDomainEvent : IDomainEvent
+    public void Store<TDomainEvent>(IEventSourced eventSourcedEntity IEnumerable<TDomainEvent> events) where TDomainEvent : IEventSourcedDomainEvent
     {
       var domainEvents = new List<IDomainEvent>(this.Events);
       foreach (var @event in events)
       {
-        domainEvents.Add(@event);
+        domainEvents.Add(@event); //append new events to existing list
       }
 
       var xmlEvents = new List<SerializableXmlEvent>(domainEvents.Count);
       foreach (var @event in domainEvents)
       {
-        var sb = new StringBuilder();
-        using (var xmlWriter = XmlWriter.Create(sb))
+        var xmlEventData = new StringBuilder();
+        using (var xmlWriter = XmlWriter.Create(xmlEventData))
         {
           var xmlSerializer = new DataContractSerializer(@event.GetType());
           xmlSerializer.WriteObject(xmlWriter, @event);
@@ -68,22 +68,23 @@ namespace BalanceMonitor.Infrastructure.Core
         {
           AggregateId = @event.AggregateId,
           Version = @event.Version,
-          Data = sb.ToString(),
-          EventType = @event.GetType().FullName.ToString(),
-          Assemblyname = @event.GetType().Assembly.FullName,
+          Data = xmlEventData.ToString(),
+          EventType = @event.GetType().FullName,
+          AssemblyName = @event.GetType().Assembly.FullName,
         };
         xmlEvents.Add(xmlEvent);
       }
 
+      //Commit to file
       using (var fs = new FileStream(this.xmlFile, FileMode.Create))
       {
-        var xmlEventSerializer = new DataContractSerializer(typeof(List<SerializableXmlEvent>));
+        var xmlEventSerializer = new DataContractSerializer(typeof(IEnumerable<SerializableXmlEvent>));
         xmlEventSerializer.WriteObject(fs, xmlEvents);
       }
     }
   }
 
-  public class SerializableXmlEvent
+  internal class SerializableXmlEvent
   {
     public Guid AggregateId { get; set; }
 
@@ -91,7 +92,7 @@ namespace BalanceMonitor.Infrastructure.Core
 
     public string EventType { get; set; }
 
-    public string Assemblyname { get; set; }
+    public string AssemblyName { get; set; }
 
     public string Data { get; set; }
   }

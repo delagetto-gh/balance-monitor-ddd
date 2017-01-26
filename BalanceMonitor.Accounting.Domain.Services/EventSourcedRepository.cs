@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BalanceMonitor.Accounting.Domain.Services
 {
-  public abstract class EventSourcedRepository<TEventSourced> : IAggregateRootRepository<TEventSourced> where TEventSourced : class, IAggregateRoot, IEventSourced, new()
+  public abstract class EventSourcedRepository<TEventSourcedAr> : IAggregateRootRepository<TEventSourcedAr> where TEventSourcedAr : class, IEventSourced, IAggregateRoot, new()
   {
     private readonly IEventStore eventStore;
     private readonly IDomainEvents domainEventsPublisher;
@@ -17,24 +17,24 @@ namespace BalanceMonitor.Accounting.Domain.Services
       this.domainEventsPublisher = domainEventsPublisher;
     }
 
-    public TEventSourced Get(Guid id)
+    public TEventSourcedAr Get(Guid id)
     {
-      TEventSourced agg = default(TEventSourced);
-      IEnumerable<IDomainEvent> events = this.eventStore.Events.Where(evt => evt.AggregateId == id);
+      TEventSourcedAr agg = default(TEventSourcedAr);
+      var events = this.eventStore.Events.OfType<IDomainEvent>().Where(evt => evt.AggregateId == id);
       if (events.Any())
       {
-        agg = new TEventSourced();
+        agg = new TEventSourcedAr();
         agg.LoadFromHistory(events);
       }
       return agg;
     }
 
-    public void Add(TEventSourced aggregate)
+    public void Save(TEventSourcedAr aggregate)
     {
       ///Don't save the entity if it hasnt had any changes applied to it.
       if (aggregate.UncommitedChanges.Any())
       {
-        var aggregateEvents = aggregate.UncommitedChanges.ToList();
+        var newEvents = aggregate.UncommitedChanges.ToList();
         if (aggregate.Version != -1) //its an existing aggregate were dealing with..
         {
           var eventStoredAggregate = this.Get(aggregate.Id);
@@ -43,16 +43,8 @@ namespace BalanceMonitor.Accounting.Domain.Services
             throw new Exception(String.Format("Optimistic Concurrency! Aggregate {0} version inconsistency. Aggregate has been modified", aggregate.GetType()));
           }
         }
-
-        int currentVersion = aggregate.Version;
-        foreach (var @event in aggregateEvents)
-        {
-          currentVersion++; //local increment based off entity's currentVersion version
-          @event.Version = aggregate.Version = currentVersion; ; //set the event version to it
-        }
-
-        this.eventStore.Store(aggregateEvents); //1. Guarantee events are stored on the "source of truth"
-        foreach (var @event in aggregateEvents) //2... Then we let others know about the event.
+        this.eventStore.(newEvents); //1. Guarantee aggregate events are stored on the "source of truth"
+        foreach (var @event in aggregate.UncommitedChanges) //2... Then we let others know about the event.
         {
           dynamic eventDym = Convert.ChangeType(@event, @event.GetType());
           this.domainEventsPublisher.Publish(eventDym);

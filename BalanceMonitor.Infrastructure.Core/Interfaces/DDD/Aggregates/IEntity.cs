@@ -2,7 +2,7 @@
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.DDD
 {
-  public interface IEntity
+  public interface IEntity<TAggregateRoot> where TAggregateRoot : IAggregateRoot
   {
     Guid Id { get; }
   }

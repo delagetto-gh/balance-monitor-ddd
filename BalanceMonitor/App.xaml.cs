@@ -56,7 +56,7 @@ namespace BalanceMonitor
     private void RegisterApplicationInfrastructure(IContainer container)
     {
       //register framework services etc..
-      container.Register<ILogger, DebugLogger>();
+      container.Register<ILogger, BalanceMonitorDebugLogger>();
 
       //register eventstore
       container.Register<IEventStore, BalanceMonitorXmlEventStore>();

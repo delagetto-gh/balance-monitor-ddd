@@ -17,7 +17,7 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 
     public Guid Id { get; protected set; }
 
-    public int Version { get; set; }
+    public int Version { get; protected set; }
 
     public IEnumerable<IDomainEvent> UncommitedChanges
     {
@@ -34,7 +34,7 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 
     public void LoadFromHistory(IEnumerable<IDomainEvent> events)
     {
-      foreach (var @event in events.OrderBy(e => e.Version))//ensure events are ordered in asc (from beginning)
+      foreach (var @event in events.OrderBy(e => e.DateOccured))//ensure events are ordered in asc (from beginning)
       {
         this.Apply(@event, false);
         this.Version = @event.Version; //Version of aggregate will be the same as last event

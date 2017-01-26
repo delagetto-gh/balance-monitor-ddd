@@ -3,7 +3,7 @@ using System;
 
 namespace BalanceMonitor.Infrastructure.Core.Logging
 {
-  public class ConsoleLogger : ILogger
+  public class BalanceMonitorConsoleLogger : ILogger
   {
     public void Log(string message)
     {

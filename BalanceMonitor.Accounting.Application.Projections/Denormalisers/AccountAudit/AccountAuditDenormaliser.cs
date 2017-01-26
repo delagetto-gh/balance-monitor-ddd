@@ -47,7 +47,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
             AccountId = @event.AggregateId,
             AccountName = @event.AccountName,
             Action = "Amount Deposited",
-            Time = @event.Created
+            Time = @event.DateOccured
           };
           ctx.AccountAudits.Add(accAudit);
           ctx.Commit();
@@ -73,7 +73,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
             AccountId = @event.AggregateId,
             AccountName = @event.AccountName,
             Action = "Amount Withdrawn",
-            Time = @event.Created
+            Time = @event.DateOccured
           };
           ctx.AccountAudits.Add(accAudit);
           ctx.Commit();
@@ -99,7 +99,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
             AccountId = @event.AggregateId,
             AccountName = @event.Name,
             Action = "Account Created",
-            Time = @event.Created
+            Time = @event.DateOccured
           };
           ctx.AccountAudits.Add(accAudit);
           ctx.Commit();

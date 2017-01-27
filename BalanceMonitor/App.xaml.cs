@@ -97,6 +97,7 @@ namespace BalanceMonitor
     {
       container.Register<ICreateAccountRegion, CreateAccountRegion>();
       container.Register<IAccountAuditRegion, AccountAuditRegion>();
+      container.Register<IAccountDailyBalanceRegion, AccountDailyBalanceRegion>();
       container.Register<IShellViewModel, ApplicationShellViewModel>();
     }
   }

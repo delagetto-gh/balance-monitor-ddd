@@ -4,6 +4,7 @@ using BalanceMonitor.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Timers;
 
 namespace BalanceMonitor.ViewModels
 {
@@ -15,11 +16,21 @@ namespace BalanceMonitor.ViewModels
 
     private DateTime date;
 
+    private Timer dataPoller;
+
     public AccountAuditRegion(IAccountingService accountingService)
     {
       this.date = DateTime.Today;
       this.accountingService = accountingService;
       this.accountAudits = new List<AccountAudit>();
+      this.dataPoller = new Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
+      this.dataPoller.Elapsed += dataPoller_Elapsed;
+      this.dataPoller.Start();
+    }
+
+    private void dataPoller_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        this.RaisePropertyChangedEvent("Audits"); //force refresh of data to reflect the new date changed
     }
 
     public DateTime Date
@@ -32,7 +43,6 @@ namespace BalanceMonitor.ViewModels
       {
         this.date = value;
         this.RaisePropertyChangedEvent("Date");
-        this.RaisePropertyChangedEvent("DailyBalance");
       }
     }
 

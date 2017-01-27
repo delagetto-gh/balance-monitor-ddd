@@ -10,10 +10,6 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public string AccountName { get; set; }
 
-    public string Currency { get; set; }
-
-    public decimal Amount { get; set; }
-
     public DateTime Date { get; set; }
 
     public IEnumerable<Money> Balance { get; set; }

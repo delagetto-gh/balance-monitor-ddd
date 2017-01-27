@@ -14,7 +14,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public AccountAuditSession()
     {
-      this.accountAuditCurrent = new ObservableCollection<AccountAudit>();
+      this.accountAuditCurrent = new ObservableCollection<AccountAudit>(AccountAuditsDb);
       this.accountAuditCurrent.CollectionChanged += OnAccountAuditCollectionChanged;
     }
 

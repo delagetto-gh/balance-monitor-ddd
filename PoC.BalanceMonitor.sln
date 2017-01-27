@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor", "BalanceMonitor\BalanceMonitor.csproj", "{1B137CA6-8599-48E0-B85B-FD289A59FB3C}"
 EndProject
@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F462
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Application.Projections", "BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj", "{52DDB7F5-AFA8-4E71-A84F-718556CC6A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Application", "BalanceMonitor.Accounting\BalanceMonitor.Accounting.Application.csproj", "{87E2CD7F-FBFC-43EC-A471-DA6F88346608}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Domain.Events", "BalanceMonitor.Accounting.Domain.Events\BalanceMonitor.Accounting.Domain.Events.csproj", "{F250712E-418A-4B71-9731-09D180F0AA7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Domain.Model", "BalanceMonitor.Accounting.Domain.Model\BalanceMonitor.Accounting.Domain.Model.csproj", "{C8178453-0433-4DC8-B6EF-DB344B3EEB3A}"
@@ -42,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Domain.Commands", "BalanceMonitor.Accounting.Domain.Commands\BalanceMonitor.Accounting.Domain.Commands.csproj", "{15664A38-FD75-4BB6-86DB-6082A7B56699}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Application.Presentation", "BalanceMonitor.Accounting.Application.Presentation\BalanceMonitor.Accounting.Application.Presentation.csproj", "{BA5DF0B2-B651-4F8F-96C2-F463AA1EBBB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Application", "BalanceMonitor.Accounting.Application\BalanceMonitor.Accounting.Application.csproj", "{87E2CD7F-FBFC-43EC-A471-DA6F88346608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,10 +61,6 @@ Global
 		{52DDB7F5-AFA8-4E71-A84F-718556CC6A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52DDB7F5-AFA8-4E71-A84F-718556CC6A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52DDB7F5-AFA8-4E71-A84F-718556CC6A84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F250712E-418A-4B71-9731-09D180F0AA7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F250712E-418A-4B71-9731-09D180F0AA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F250712E-418A-4B71-9731-09D180F0AA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -101,25 +97,29 @@ Global
 		{BA5DF0B2-B651-4F8F-96C2-F463AA1EBBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA5DF0B2-B651-4F8F-96C2-F463AA1EBBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA5DF0B2-B651-4F8F-96C2-F463AA1EBBB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E2CD7F-FBFC-43EC-A471-DA6F88346608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1} = {F462F9D7-BBB0-44A8-9B57-76DA3E20660C}
 		{88656AB3-6D31-417E-9A8C-3372F1E84B23} = {81362630-7236-41A5-8952-5FC6A53ACB00}
 		{FDECA5FF-3B01-4ED3-92D2-3F35F50AAD89} = {F462F9D7-BBB0-44A8-9B57-76DA3E20660C}
 		{AFA3C69A-CF99-4BDC-9A5F-38AC6FF6920E} = {F462F9D7-BBB0-44A8-9B57-76DA3E20660C}
-		{2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1} = {F462F9D7-BBB0-44A8-9B57-76DA3E20660C}
-		{E67D3350-A8F9-460F-ADD1-442253A6612D} = {DCBBE785-1DE8-4B10-AB39-0BC73A819485}
 		{52DDB7F5-AFA8-4E71-A84F-718556CC6A84} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
-		{87E2CD7F-FBFC-43EC-A471-DA6F88346608} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{F250712E-418A-4B71-9731-09D180F0AA7C} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{C8178453-0433-4DC8-B6EF-DB344B3EEB3A} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{AB10FC9E-C959-40F9-87C5-04C3F9AAAFDA} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{BA2EDA14-8E7C-4A56-B304-1EA7E15799F6} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{123ECE29-6C16-4CE0-936A-09DF130B4271} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
+		{E67D3350-A8F9-460F-ADD1-442253A6612D} = {DCBBE785-1DE8-4B10-AB39-0BC73A819485}
 		{3DB18A4D-5CA5-4222-AB41-C419E35BC02B} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{15664A38-FD75-4BB6-86DB-6082A7B56699} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 		{BA5DF0B2-B651-4F8F-96C2-F463AA1EBBB4} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
+		{87E2CD7F-FBFC-43EC-A471-DA6F88346608} = {2BDA46C7-8AEE-4BEF-BC80-12DAAA4F2FE1}
 	EndGlobalSection
 EndGlobal

@@ -2,61 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace BalanceMonitor.Accounting.Application.Projections
 {
   public class AccountDailyBalanceSession
   {
-    private Dictionary<Type, object> iDatabase = new Dictionary<Type, object>();
+     private static ObservableCollection<AccountDailyBalance> AccountAuditsDb = new ObservableCollection<AccountDailyBalance>();
 
-    private ObservableCollection<AccountDailyBalance> accountDailyBalances;
+    private readonly ObservableCollection<AccountDailyBalance> accountDailyBalances;
 
-    private bool IsDirty = true;
 
     public AccountDailyBalanceSession()
     {
       //this.iDatabase = somePossibleEfDataBaseContext;
-      this.accountDailyBalances = new ObservableCollection<AccountDailyBalance>();
-      this.accountDailyBalances.CollectionChanged += (sender, @eventArgs) => this.IsDirty = true;
+      this.accountDailyBalances = new ObservableCollection<AccountDailyBalance>(AccountAuditsDb);
+      this.accountDailyBalances.CollectionChanged += OnAccountAuditCollectionChanged;
     }
 
-    public ICollection<AccountDailyBalance> AccountDailyBalance
+    private void OnAccountAuditCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+      switch (e.Action)
+      {
+        case NotifyCollectionChangedAction.Add:
+          foreach (var newAudit in e.NewItems)
+          {
+              var audit = (AccountDailyBalance)newAudit;
+            AccountAuditsDb.Add(audit);
+          }
+          break;
+        case NotifyCollectionChangedAction.Remove:
+          AccountAuditsDb.RemoveAt(e.NewStartingIndex);
+          break;
+        default:
+          break;
+      }
+    }
+
+    public ObservableCollection<AccountDailyBalance> AccountDailyBalance
     {
       get
       {
-        if (this.IsDirty)
-        {
-          if (this.iDatabase.ContainsKey(typeof(ICollection<AccountDailyBalance>)))
-          {
-            var audits = (ICollection<AccountDailyBalance>)this.iDatabase[typeof(ICollection<AccountDailyBalance>)];
-            this.accountDailyBalances = new ObservableCollection<AccountDailyBalance>(audits);
-          }
-          else
-          {
-            this.accountDailyBalances = new ObservableCollection<AccountDailyBalance>();
-          }
-          this.IsDirty = false;
-        }
-        return this.accountDailyBalances;
+          return this.accountDailyBalances;
       }
-    }
-
-    public void Commit()
-    {
-      if (this.iDatabase.ContainsKey(typeof(ICollection<AccountDailyBalance>)))
-      {
-        this.iDatabase[typeof(ICollection<AccountDailyBalance>)] = this.AccountDailyBalance;
-      }
-      else
-      {
-        this.iDatabase.Add(typeof(ICollection<AccountDailyBalance>), this.AccountDailyBalance);
-      }
-    }
-
-    public void Dispose()
-    {
-      this.iDatabase = null;
-      this.accountDailyBalances = null;
     }
   }
 }

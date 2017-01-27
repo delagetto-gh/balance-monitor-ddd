@@ -6,11 +6,13 @@ namespace BalanceMonitor.ViewModels
   {
     private readonly ICreateAccountRegion createNewAccountSection;
     private readonly IAccountAuditRegion accountAuditSection;
+    private readonly IAccountDailyBalanceRegion dailyalanceSection;
 
-    public ApplicationShellViewModel(IAccountAuditRegion accountListingsSection, ICreateAccountRegion createNewAccountSection)
+    public ApplicationShellViewModel(IAccountAuditRegion accountListingsSection, ICreateAccountRegion createNewAccountSection, IAccountDailyBalanceRegion dailyBalRegion)
     {
       this.createNewAccountSection = createNewAccountSection;
       this.accountAuditSection = accountListingsSection;
+      this.dailyalanceSection = dailyBalRegion;
     }
 
     public ICreateAccountRegion CreateNewAccountSection
@@ -23,9 +25,9 @@ namespace BalanceMonitor.ViewModels
       get { return this.accountAuditSection; }
     }
 
-    public IAccountAuditRegion AccountDailyBalanceSection
+    public IAccountDailyBalanceRegion AccountDailyBalanceSection
     {
-      get { return this.accountAuditSection; }
+        get { return this.dailyalanceSection ; }
     }
   }
 }

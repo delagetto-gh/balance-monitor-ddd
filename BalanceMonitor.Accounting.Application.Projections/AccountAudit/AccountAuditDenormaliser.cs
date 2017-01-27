@@ -15,11 +15,11 @@ namespace BalanceMonitor.Accounting.Application.Projections
                                           IHandleEvents<AmountDepositedEvent>,
                                           IHandleEvents<AmountWithdrawalEvent>
   {
-    private readonly ILogger logger;
+    //private readonly ILogger logger = new DebgLogger
 
-    public AccountAuditDenormaliser(ILogger log)
+    public AccountAuditDenormaliser()
     {
-      this.logger = log;
+      //this.logger = log;
     }
 
     public IEnumerable<AccountAudit> GetAuditOnDate(DateTime date)
@@ -30,7 +30,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public void Handle(AmountDepositedEvent @event)
     {
-      this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
+      //this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
 
       AccountAuditSession ctx = new AccountAuditSession();
       var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);
@@ -54,7 +54,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public void Handle(AmountWithdrawalEvent @event)
     {
-      this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
+      //this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
 
       AccountAuditSession ctx = new AccountAuditSession();
       var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);
@@ -77,7 +77,7 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public void Handle(AccountCreatedEvent @event)
     {
-      this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
+      //this.logger.Log(String.Format("Account deposited event @ {0}", DateTimeOffset.Now));
 
       AccountAuditSession ctx = new AccountAuditSession();
       var account = ctx.AccountAudits.FirstOrDefault(o => o.AccountId == @event.AggregateId);

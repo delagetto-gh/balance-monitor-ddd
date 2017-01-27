@@ -1,7 +1,8 @@
-﻿using BalanceMonitor.Accounting.Application.Commands;
+﻿using BalanceMonitor.Accounting.Application.CommonHandlers;
 using BalanceMonitor.Accounting.Application.Projections;
 using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Accounting.Domain.Events;
 using BalanceMonitor.Accounting.Domain.Services;
 using BalanceMonitor.Infrastructure.Core;
@@ -61,15 +62,11 @@ namespace BalanceMonitor
       //register eventstore
       container.Register<IEventStore, BalanceMonitorXmlEventStore>();
 
-      container.Register<IEventHandler<AccountCreatedEvent>, AccountAuditDenormaliser>();
-      //container.Register<IEventHandler<AmountDepositedEvent>, AccountAuditDenormaliser>();
-      //container.Register<IEventHandler<AmountWithdrawalEvent>, AccountAuditDenormaliser>();
-
+      container.Register<IHandleEvents<AccountCreatedEvent>, AccountAuditDenormaliser>();
+      container.Register<IHandleEvents<AmountWithdrawalEvent>, AccountAuditDenormaliser>();
+  
       //register eventPublisher
       container.Register<IDomainEvents, BalanceMonitorDomainEvents>();
-
-      //register sessionFactory
-      container.Register<ISessionFactory, BalanceMonitorSessionFactory>();
 
       //register sessions
       container.Register<AccountDailyBalanceSession>();
@@ -87,7 +84,7 @@ namespace BalanceMonitor
 
       //registeer command handler(s)
       container.Register<ICommandHandler<CreateAccountCommand>, BalanceMonitorAccountingCommandHandler>();
-      container.Register<ICommandHandler<HelloWorldCommand>, BalanceMonitorAccountingCommandHandler>();
+      container.Register<ICommandHandler<WithdrawMoneyCommand>, BalanceMonitorAccountingCommandHandler>();
 
 
       //var eventHandlerAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(o => o.GetTypes().Any(t => typeof(IEventHandler<>).IsAssignableFrom(t)));

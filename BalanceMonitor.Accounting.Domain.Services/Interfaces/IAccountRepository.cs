@@ -5,7 +5,7 @@ using System.ServiceModel;
 namespace BalanceMonitor.Accounting.Domain.Services
 {
   [ServiceContract]
-  public interface IAccountRepository : IAggregateRootRepository<Account>
+  public interface IAccountRepository : IEventSourcedRepsitory< IAggregateRootRepository<Account>
   {
   }
 }

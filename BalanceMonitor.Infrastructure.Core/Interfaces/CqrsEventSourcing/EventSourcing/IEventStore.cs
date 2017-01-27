@@ -5,8 +5,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public interface IEventStore
   {
-    IEnumerable<IEvent> Events { get; }
+    IEnumerable<IDomainEvent> Events { get; }
 
-    void Store<TEvent>(IEnumerable<TEvent> events) where TEvent : IEvent;
+    void Store<TEvent>(IEnumerable<TEvent> events) where TEvent : IDomainEvent;
   }
 }

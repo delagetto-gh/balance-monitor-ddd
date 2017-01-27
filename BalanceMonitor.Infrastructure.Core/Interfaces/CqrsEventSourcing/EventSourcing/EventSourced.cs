@@ -10,14 +10,9 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
     private readonly List<IDomainEvent> changes = new List<IDomainEvent>();
     private readonly Dictionary<Type, Action<IDomainEvent>> eventHandlers = new Dictionary<Type, Action<IDomainEvent>>();
 
-    protected EventSourced()
-    {
-      this.Version = -1;
-    }
-
     public Guid Id { get; protected set; }
 
-    public int Version { get; protected set; }
+    public int Version { get; private set; }
 
     public IEnumerable<IDomainEvent> UncommitedChanges
     {
@@ -37,7 +32,6 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
       foreach (var @event in events.OrderBy(e => e.DateOccured))//ensure events are ordered in asc (from beginning)
       {
         this.Apply(@event, false);
-        this.Version = @event.Version; //Version of aggregate will be the same as last event
       }
     }
 
@@ -58,6 +52,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
         this.eventHandlers[@event.GetType()](@event);
         if (isNew)
           this.changes.Add(@event);
+
+        this.Version++;
       }
     }
   }

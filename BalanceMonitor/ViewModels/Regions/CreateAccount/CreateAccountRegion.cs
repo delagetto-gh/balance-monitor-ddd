@@ -1,5 +1,6 @@
-﻿using BalanceMonitor.Accounting.Application.Commands;
-using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+﻿using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+using BalanceMonitor.Accounting.Domain.Commands;
+using BalanceMonitor.Accounting.Domain.Common;
 using BalanceMonitor.Utility;
 using BalanceMonitor.ViewModels.Regions;
 using System;
@@ -13,6 +14,7 @@ namespace BalanceMonitor.ViewModels
   {
     private readonly IAccountingService accSvc;
 
+    Guid accountId = new Guid("84492de2-0c4e-4096-974c-0607b568beb1");
     private decimal balanceAmount;
     private string balanceCcy;
     private string accountName;
@@ -21,8 +23,8 @@ namespace BalanceMonitor.ViewModels
     {
       this.accSvc = accSvc;
       this.Balance = new ObservableCollection<BalanceViewModel>();
-      this.AddNewBalanceCommand = new DelegateCommand((_) => this.Balance.Add(new BalanceViewModel(this.BalanceCurrency, this.BalanceAmount)), (_) => !String.IsNullOrWhiteSpace(this.BalanceCurrency) && !this.Balance.Any(b => b.Currency == this.BalanceCurrency));
-      this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Submit(new CreateAccountCommand(Guid.NewGuid(), this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
+      this.WithdrawAmountCommand = new DelegateCommand((_) => this.accSvc.Submit(new WithdrawMoneyCommand(this.accountId, new Money("GBP", 0))), (_) => true);
+      this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Submit(new CreateAccountCommand(accountId, this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
     }
 
     public string Name
@@ -68,6 +70,6 @@ namespace BalanceMonitor.ViewModels
 
     public WpfCommands.ICommand CreateNewAccountCommand { get; private set; }
 
-    public WpfCommands.ICommand AddNewBalanceCommand { get; private set; }
+    public WpfCommands.ICommand WithdrawAmountCommand { get; private set; }
   }
 }

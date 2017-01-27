@@ -64,7 +64,6 @@
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommand.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandBus.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandHandler.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Query\IEventHandler.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\EventSourced.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventSourced.cs" />
     <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventStore.cs" />
@@ -74,17 +73,20 @@
     <Compile Include="Interfaces\DDD\Events\IEvent.cs" />
     <Compile Include="Interfaces\DDD\Events\IDomainEvent.cs" />
     <Compile Include="Interfaces\DDD\Events\IDomainEvents.cs" />
+    <Compile Include="Interfaces\DDD\Events\IHandleEvents.cs" />
     <Compile Include="Interfaces\DDD\Repositories\IAggregateRootRepository.cs" />
     <Compile Include="Interfaces\Ioc\IContainer.cs" />
     <Compile Include="Interfaces\Logging\ILogger.cs" />
-    <Compile Include="Interfaces\UnitOfWork\ISession.cs" />
+    <Compile Include="Interfaces\UnitOfWork\ISessionFactory.cs" />
     <Compile Include="BalanceMonitorDebugLogger.cs" />
     <Compile Include="BalanceMonitorFileSystemLogger.cs" />
     <Compile Include="BalanceMonitorIoc.cs" />
     <Compile Include="BalanceMonitorConsoleLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\CqrsEventSourcing\Cqrs\Query - Templated for Readmodel Repository go here\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

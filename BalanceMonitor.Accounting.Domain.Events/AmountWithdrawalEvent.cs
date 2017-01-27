@@ -1,10 +1,11 @@
 ﻿using BalanceMonitor.Accounting.Domain.Common;
+using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
 using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
 
 namespace BalanceMonitor.Accounting.Domain.Events
 {
-  public class AmountWithdrawalEvent : EventSourcedDomainEvent
+  public class AmountWithdrawalEvent : DomainEvent
   {
     public AmountWithdrawalEvent(Guid aggregateId, Money amount)
       : base(aggregateId)

@@ -35,16 +35,19 @@ namespace BalanceMonitor.Accounting.Domain.Services
       if (aggregate.UncommitedChanges.Any())
       {
         var newEvents = aggregate.UncommitedChanges.ToList();
-        if (aggregate.Version != -1) //its an existing aggregate were dealing with..
+        TEventSourcedAr existingAgg = this.Get(aggregate.Id);
+        if (existingAgg != null)
         {
-          var eventStoredAggregate = this.Get(aggregate.Id);
-          if (aggregate.Version != eventStoredAggregate.Version)
+          var expectedAggregateVersion = aggregate.Version - newEvents.Count;
+          var existingAggregateVersion = existingAgg.Version;
+          if (expectedAggregateVersion != existingAggregateVersion)
           {
             throw new Exception(String.Format("Optimistic Concurrency! Aggregate {0} version inconsistency. Aggregate has been modified", aggregate.GetType()));
           }
         }
-        this.eventStore.(newEvents); //1. Guarantee aggregate events are stored on the "source of truth"
-        foreach (var @event in aggregate.UncommitedChanges) //2... Then we let others know about the event.
+
+        this.eventStore.Store(newEvents); //1. Guarantee aggregate events are stored on the "source of truth"
+        foreach (var @event in newEvents) //2... Then we let others know about the event.
         {
           dynamic eventDym = Convert.ChangeType(@event, @event.GetType());
           this.domainEventsPublisher.Publish(eventDym);

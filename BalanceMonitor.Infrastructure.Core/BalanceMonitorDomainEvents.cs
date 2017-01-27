@@ -21,12 +21,17 @@ namespace BalanceMonitor.Infrastructure.Core
     {
       if (@event != null)
       {
-        var evtHandlers = this.container.ResolveAll<IEventHandler<TEvent>>();
-        foreach (var eHdlr in evtHandlers)
-        {
-          //This is done syncronously right now, but perhaps we could have  an ISyncronousEventHandler<T>...
-          eHdlr.Handle(@event);
-        }
+        //var evtHandlers = this.container.ResolveAll<IHandleEvents<TEvent>>();
+        //foreach (var eHdlr in evtHandlers)
+        //{
+        //  //This is done syncronously right now, but perhaps we could have  an ISyncronousEventHandler<T>...
+        //  eHdlr.Handle(@event);
+        //}
+
+        var eHdlr = this.container.Resolve<IHandleEvents<TEvent>>();
+        //This is done syncronously right now, but perhaps we could have  an ISyncronousEventHandler<T>...
+        eHdlr.Handle(@event);
+
       }
       else
       {

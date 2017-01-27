@@ -45,7 +45,7 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="_nb - SharedKernel - shared only between App Commands, Domain Model and Events in same BC!.txt" />
+    <Content Include="_nb - SharedKernel - shared only between %28Commands,Model,Events%29 aka the domain in the same BC!.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

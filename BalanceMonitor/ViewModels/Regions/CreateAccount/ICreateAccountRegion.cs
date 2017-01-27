@@ -10,7 +10,7 @@ namespace BalanceMonitor.ViewModels.Regions
     decimal BalanceAmount { get; set; }
     string BalanceCurrency { get; set; }
     ICommand CreateNewAccountCommand { get; }
-    ICommand AddNewBalanceCommand { get; }
+    ICommand WithdrawAmountCommand { get; }
     string Name { get; set; }
   }
 }

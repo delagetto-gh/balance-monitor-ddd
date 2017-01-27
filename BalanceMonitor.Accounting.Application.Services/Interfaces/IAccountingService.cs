@@ -1,5 +1,4 @@
-﻿using BalanceMonitor.Accounting.Application.Commands;
-using BalanceMonitor.Accounting.Application.Projections.Interfaces;
+﻿using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using System.ServiceModel;
 

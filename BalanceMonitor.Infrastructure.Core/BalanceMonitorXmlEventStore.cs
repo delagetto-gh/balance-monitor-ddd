@@ -19,11 +19,11 @@ namespace BalanceMonitor.Infrastructure.Core
       this.xmlFile = "BalanceMonitorXmlEventStore.xml";
     }
 
-    public IEnumerable<IEventSourcedDomainEvent> Events
+    public IEnumerable<IDomainEvent> Events
     {
       get
       {
-        var domainEvents = new List<IEventSourcedDomainEvent>();
+        var domainEvents = new List<IDomainEvent>();
         using (var fs = new FileStream(this.xmlFile, FileMode.OpenOrCreate))
         {
           if (fs.Length > 0)
@@ -32,11 +32,11 @@ namespace BalanceMonitor.Infrastructure.Core
             var xmlEventsCollection = (IEnumerable<SerializableXmlEvent>)xmlEventsCollectionDeserializer.ReadObject(fs);
             foreach (var xmlEvent in xmlEventsCollection)
             {
-              using (var xmlReader = new XmlTextReader(new StringReader(xmlEvent.Data)))
+              using (var xmlReader = new XmlTextReader(new StringReader(xmlEvent.PayLoad)))
               {
                 var deserializedType = Type.GetType(string.Format("{0}, {1}", xmlEvent.EventType, xmlEvent.AssemblyName)); //Assembly FQN, as events are stored in a separate assembly
                 var xmlEventDeserialzer = new DataContractSerializer(deserializedType);
-                var @event = xmlEventDeserialzer.ReadObject(xmlReader) as IEventSourcedDomainEvent;
+                var @event = xmlEventDeserialzer.ReadObject(xmlReader) as IDomainEvent;
                 domainEvents.Add(@event);
               }
             }
@@ -46,7 +46,7 @@ namespace BalanceMonitor.Infrastructure.Core
       }
     }
 
-    public void Store<TDomainEvent>(IEventSourced eventSourcedEntity IEnumerable<TDomainEvent> events) where TDomainEvent : IEventSourcedDomainEvent
+    public void Store<TDomainEvent>(IEnumerable<TDomainEvent> events) where TDomainEvent : IDomainEvent
     {
       var domainEvents = new List<IDomainEvent>(this.Events);
       foreach (var @event in events)
@@ -66,9 +66,8 @@ namespace BalanceMonitor.Infrastructure.Core
 
         var xmlEvent = new SerializableXmlEvent
         {
-          AggregateId = @event.AggregateId,
-          Version = @event.Version,
-          Data = xmlEventData.ToString(),
+          Id = @event.AggregateId,
+          PayLoad = xmlEventData.ToString(),
           EventType = @event.GetType().FullName,
           AssemblyName = @event.GetType().Assembly.FullName,
         };
@@ -84,16 +83,14 @@ namespace BalanceMonitor.Infrastructure.Core
     }
   }
 
-  internal class SerializableXmlEvent
+  public class SerializableXmlEvent
   {
-    public Guid AggregateId { get; set; }
-
-    public int Version { get; set; }
+    public Guid Id { get; set; }
 
     public string EventType { get; set; }
 
     public string AssemblyName { get; set; }
 
-    public string Data { get; set; }
+    public string PayLoad { get; set; }
   }
 }

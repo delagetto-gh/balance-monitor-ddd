@@ -69,10 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Commands\BalanceMonitor.Accounting.Application.Commands.csproj">
-      <Project>{15664a38-fd75-4bb6-86db-6082a7b56699}</Project>
-      <Name>BalanceMonitor.Accounting.Application.Commands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj">
       <Project>{52ddb7f5-afa8-4e71-a84f-718556cc6a84}</Project>
       <Name>BalanceMonitor.Accounting.Application.Projections</Name>

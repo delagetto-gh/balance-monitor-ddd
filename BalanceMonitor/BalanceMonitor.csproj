@@ -121,9 +121,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Commands\BalanceMonitor.Accounting.Application.Commands.csproj">
-      <Project>{15664a38-fd75-4bb6-86db-6082a7b56699}</Project>
-      <Name>BalanceMonitor.Accounting.Application.Commands</Name>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Application.CommonHandlers\BalanceMonitor.Accounting.Application.CommonHandlers.csproj">
+      <Project>{3db18a4d-5ca5-4222-ab41-c419e35bc02b}</Project>
+      <Name>BalanceMonitor.Accounting.Application.CommonHandlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj">
       <Project>{52ddb7f5-afa8-4e71-a84f-718556cc6a84}</Project>
@@ -132,6 +132,14 @@
     <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Services\BalanceMonitor.Accounting.Application.Services.csproj">
       <Project>{ab10fc9e-c959-40f9-87c5-04c3f9aaafda}</Project>
       <Name>BalanceMonitor.Accounting.Application.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Commands\BalanceMonitor.Accounting.Domain.Commands.csproj">
+      <Project>{15664a38-fd75-4bb6-86db-6082a7b56699}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Common\BalanceMonitor.Accounting.Domain.Common.csproj">
+      <Project>{123ece29-6c16-4ce0-936a-09df130b4271}</Project>
+      <Name>BalanceMonitor.Accounting.Domain.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Events\BalanceMonitor.Accounting.Domain.Events.csproj">
       <Project>{f250712e-418a-4b71-9731-09d180f0aa7c}</Project>

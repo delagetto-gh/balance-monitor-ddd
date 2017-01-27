@@ -71,15 +71,14 @@
     <Compile Include="ViewModels\Regions\AccountAudit\IAccountAuditRegion.cs" />
     <Compile Include="ViewModels\Regions\AccountDailyBalance\AccountDailyBalanceRegion.cs" />
     <Compile Include="ViewModels\Regions\AccountAudit\AccountAuditRegion.cs" />
-    <Compile Include="ViewModels\Interfaces\IShellViewModel.cs" />
+    <Compile Include="ViewModels\Shell\IShellViewModel.cs" />
     <Compile Include="Utility\DelegateCommand.cs" />
-    <Compile Include="ViewModels\BalanceViewModel.cs" />
     <Compile Include="ViewModels\Regions\AccountDailyBalance\IAccountDailyBalanceRegion.cs" />
     <Compile Include="ViewModels\Regions\CreateAccount\CreateAccountRegion.cs" />
     <Compile Include="ViewModels\Regions\CreateAccount\ICreateAccountRegion.cs" />
     <Compile Include="ViewModels\Shell\ApplicationShellViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\ViewModelBase.cs" />
-    <Page Include="Views\Shell\ApplicationShellView.xaml">
+    <Compile Include="Utility\ObservableViewModel.cs" />
+    <Page Include="Views\Shell\BalanceMonitorShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -87,8 +86,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Shell\ApplicationShellView.xaml.cs">
-      <DependentUpon>ApplicationShellView.xaml</DependentUpon>
+    <Compile Include="Views\Shell\BalanceMonitorShellView.xaml.cs">
+      <DependentUpon>BalanceMonitorShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -153,16 +152,20 @@
       <Project>{ba2eda14-8e7c-4a56-b304-1ea7e15799f6}</Project>
       <Name>BalanceMonitor.Accounting.Domain.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BalanceMonitor.Accounting\BalanceMonitor.Accounting.csproj">
+    <ProjectReference Include="..\BalanceMonitor.Accounting\BalanceMonitor.Accounting.Application.csproj">
       <Project>{87e2cd7f-fbfc-43ec-a471-da6f88346608}</Project>
-      <Name>BalanceMonitor.Accounting</Name>
+      <Name>BalanceMonitor.Accounting.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
       <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
       <Name>BalanceMonitor.Infrastructure.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Regions\AccountAudit\" />
+    <Folder Include="Views\Regions\AccountDailyBalance\" />
+    <Folder Include="Views\Regions\CreateAccount\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

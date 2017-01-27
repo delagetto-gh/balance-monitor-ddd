@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace BalanceMonitor.ViewModels
+namespace BalanceMonitor.Utility
 {
-  public abstract class ViewModelBase : INotifyPropertyChanged
+  public abstract class ObservableViewModel : INotifyPropertyChanged
   {
     protected void RaisePropertyChangedEvent(string propertyName)
     {

@@ -43,9 +43,10 @@
   <ItemGroup>
     <Compile Include="Aggregates\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Repositories\IAccountRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Content Include="Services\NB - DomainServices go here %28Just their interfaces and abstract classes - no concrete imps%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

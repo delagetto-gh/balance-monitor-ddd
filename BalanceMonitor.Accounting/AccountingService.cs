@@ -4,7 +4,7 @@ using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using System;
 using System.Collections.Generic;
 
-namespace BalanceMonitor.Accounting.Application.Services.ApplicationServices
+namespace BalanceMonitor.Accounting.Application
 {
   public class AccountingService : IAccountingService
   {

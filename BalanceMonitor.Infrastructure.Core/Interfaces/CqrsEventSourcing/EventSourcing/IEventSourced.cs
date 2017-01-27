@@ -1,5 +1,4 @@
 ﻿using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
-using System;
 using System.Collections.Generic;
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing

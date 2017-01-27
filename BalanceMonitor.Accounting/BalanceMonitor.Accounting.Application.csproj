@@ -7,8 +7,8 @@
     <ProjectGuid>{87E2CD7F-FBFC-43EC-A471-DA6F88346608}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BalanceMonitor.Modules.Accounting</RootNamespace>
-    <AssemblyName>BalanceMonitor.Modules.Accounting</AssemblyName>
+    <RootNamespace>BalanceMonitor.Accounting.Application</RootNamespace>
+    <AssemblyName>BalanceMonitor.Accounting.Application</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,16 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootStrapper.cs" />
+    <Compile Include="AccountingService.cs" />
+    <Compile Include="IAccountingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj">
       <Project>{52ddb7f5-afa8-4e71-a84f-718556cc6a84}</Project>
       <Name>BalanceMonitor.Accounting.Application.Projections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Infrastructure.Core\BalanceMonitor.Infrastructure.Core.csproj">
+      <Project>{88656ab3-6d31-417e-9a8c-3372f1e84b23}</Project>
+      <Name>BalanceMonitor.Infrastructure.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

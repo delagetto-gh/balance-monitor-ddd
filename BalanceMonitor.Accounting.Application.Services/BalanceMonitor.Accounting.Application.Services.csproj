@@ -60,12 +60,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ServiceHosts\AccountingService.svc" />
-    <Content Include="ServiceHosts\Web.config" />
+    <Content Include="AccountingService.svc" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountingService.cs" />
-    <Compile Include="Interfaces\IAccountingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,10 +81,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ServiceHosts\Web.Debug.config">
+    <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="ServiceHosts\Web.Release.config">
+    <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>

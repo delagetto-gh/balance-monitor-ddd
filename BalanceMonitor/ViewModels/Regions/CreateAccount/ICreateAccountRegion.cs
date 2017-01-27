@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BalanceMonitor.Accounting.Domain.Common;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace BalanceMonitor.ViewModels.Regions
+namespace BalanceMonitor.ViewModels
 {
   public interface ICreateAccountRegion
   {
-    ObservableCollection<BalanceViewModel> Balance { get; }
-    decimal BalanceAmount { get; set; }
-    string BalanceCurrency { get; set; }
+    ObservableCollection<Money> Balance { get; } //should really be a money viewmodel but.. meh
+    decimal Amount { get; set; }
+    string Currency { get; set; }
     ICommand CreateNewAccountCommand { get; }
-    ICommand WithdrawAmountCommand { get; }
+    ICommand AddBalanceCommand { get; }
     string Name { get; set; }
   }
 }

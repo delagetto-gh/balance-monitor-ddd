@@ -74,6 +74,7 @@
     <Compile Include="Interfaces\DDD\Events\IDomainEvent.cs" />
     <Compile Include="Interfaces\DDD\Events\IDomainEvents.cs" />
     <Compile Include="Interfaces\DDD\Events\IHandleEvents.cs" />
+    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\EventSourcedRepository.cs" />
     <Compile Include="Interfaces\DDD\Repositories\IAggregateRootRepository.cs" />
     <Compile Include="Interfaces\Ioc\IContainer.cs" />
     <Compile Include="Interfaces\Logging\ILogger.cs" />

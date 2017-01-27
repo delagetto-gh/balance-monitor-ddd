@@ -1,13 +1,13 @@
-﻿using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
-using BalanceMonitor.ViewModels.Regions;
+﻿using BalanceMonitor.Accounting.Application;
+using BalanceMonitor.Accounting.Application.Projections;
+using BalanceMonitor.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace BalanceMonitor.ViewModels
 {
-  public class AccountDailyBalanceRegion : ViewModelBase, IAccountDailyBalanceRegion
+  public class AccountDailyBalanceRegion : ObservableViewModel, IAccountDailyBalanceRegion
   {
     private readonly IAccountingService accountingService;
 
@@ -17,8 +17,8 @@ namespace BalanceMonitor.ViewModels
 
     public AccountDailyBalanceRegion(IAccountingService accountingService)
     {
-      this.date = DateTime.Today;
       this.accountingService = accountingService;
+      this.date = DateTime.Today;
       this.dailyBalances = new List<AccountDailyBalance>();
     }
 
@@ -32,6 +32,7 @@ namespace BalanceMonitor.ViewModels
       {
         this.date = value;
         this.RaisePropertyChangedEvent("Date");
+        this.RaisePropertyChangedEvent("DailyBalance"); //force refresh of data to reflect the new date changed
       }
     }
 

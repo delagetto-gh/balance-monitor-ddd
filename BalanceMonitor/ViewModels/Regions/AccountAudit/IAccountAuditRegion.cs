@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BalanceMonitor.Accounting.Application.Projections;
+using System;
 using System.Collections.ObjectModel;
-using BalanceMonitor.Accounting.Application.Projections;
 
-namespace BalanceMonitor.ViewModels.Regions
+namespace BalanceMonitor.ViewModels
 {
   public interface IAccountAuditRegion
   {
-    ObservableCollection<AccountAudit> DailyBalance { get; }
+    ObservableCollection<AccountAudit> Audits { get; }
     DateTime Date { get; set; }
   }
 }

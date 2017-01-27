@@ -1,7 +1,8 @@
-﻿using BalanceMonitor.ViewModels.Regions;
-namespace BalanceMonitor.ViewModels.Shell
+﻿using BalanceMonitor.Utility;
+
+namespace BalanceMonitor.ViewModels
 {
-  public class ApplicationShellViewModel : ViewModelBase, IShellViewModel
+  public class ApplicationShellViewModel : ObservableViewModel, IShellViewModel
   {
     private readonly ICreateAccountRegion createNewAccountSection;
     private readonly IAccountAuditRegion accountAuditSection;
@@ -17,7 +18,12 @@ namespace BalanceMonitor.ViewModels.Shell
       get { return this.createNewAccountSection; }
     }
 
-    public IAccountAuditRegion AccountListingsSection
+    public IAccountAuditRegion AccountAuditSection
+    {
+      get { return this.accountAuditSection; }
+    }
+
+    public IAccountAuditRegion AccountDailyBalanceSection
     {
       get { return this.accountAuditSection; }
     }

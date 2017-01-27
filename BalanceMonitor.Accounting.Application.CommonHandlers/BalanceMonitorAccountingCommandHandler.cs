@@ -1,6 +1,6 @@
 ﻿using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Accounting.Domain.Model;
-using BalanceMonitor.Accounting.Domain.Services;
+using BalanceMonitor.Accounting.Domain.Model.Repositories;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
 using System;

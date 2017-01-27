@@ -1,10 +1,8 @@
 ﻿using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
-using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace BalanceMonitor.Accounting.Domain.Services
+namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
   public abstract class EventSourcedRepository<TEventSourcedAr> : IAggregateRootRepository<TEventSourcedAr> where TEventSourcedAr : class, IEventSourced, IAggregateRoot, new()
   {

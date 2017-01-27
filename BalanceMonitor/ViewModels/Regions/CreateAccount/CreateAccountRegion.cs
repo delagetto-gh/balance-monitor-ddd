@@ -1,30 +1,27 @@
-﻿using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+﻿using BalanceMonitor.Accounting.Application;
 using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Accounting.Domain.Common;
 using BalanceMonitor.Utility;
-using BalanceMonitor.ViewModels.Regions;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using WpfCommands = System.Windows.Input;
 
 namespace BalanceMonitor.ViewModels
 {
-  public class CreateAccountRegion : ViewModelBase, ICreateAccountRegion
+  public class CreateAccountRegion : ObservableViewModel, ICreateAccountRegion
   {
-    private readonly IAccountingService accSvc;
-
-    Guid accountId = new Guid("84492de2-0c4e-4096-974c-0607b568beb1");
+    private readonly IAccountingService accountingService;
+    private Guid accountId = Guid.Empty;
+    private string accountName;
     private decimal balanceAmount;
     private string balanceCcy;
-    private string accountName;
 
-    public CreateAccountRegion(IAccountingService accSvc)
+    public CreateAccountRegion(IAccountingService accountingService)
     {
-      this.accSvc = accSvc;
-      this.Balance = new ObservableCollection<BalanceViewModel>();
-      this.WithdrawAmountCommand = new DelegateCommand((_) => this.accSvc.Submit(new WithdrawMoneyCommand(this.accountId, new Money("GBP", 0))), (_) => true);
-      this.CreateNewAccountCommand = new DelegateCommand((_) => this.accSvc.Submit(new CreateAccountCommand(accountId, this.Name)), (_) => !String.IsNullOrWhiteSpace(this.Name));
+      this.accountingService = accountingService;
+      this.Balance = new ObservableCollection<Money>();
+      this.CreateNewAccountCommand = new DelegateCommand(o => this.accountingService.Submit(new CreateAccountCommand((this.accountId = Guid.NewGuid()), this.Name)), o => !String.IsNullOrWhiteSpace(this.Name) && this.accountId == Guid.Empty);
+      this.AddBalanceCommand = new DelegateCommand(o => this.Balance.Add(new Money(this.Currency, this.Amount)), o => this.accountId == Guid.Empty);
     }
 
     public string Name
@@ -40,9 +37,9 @@ namespace BalanceMonitor.ViewModels
       }
     }
 
-    public ObservableCollection<BalanceViewModel> Balance { get; private set; }
+    public ObservableCollection<Money> Balance { get; private set; }
 
-    public string BalanceCurrency
+    public string Currency
     {
       get
       {
@@ -51,11 +48,11 @@ namespace BalanceMonitor.ViewModels
       set
       {
         balanceCcy = value;
-        this.RaisePropertyChangedEvent("BalanceCurrency");
+        this.RaisePropertyChangedEvent("Currency");
       }
     }
 
-    public decimal BalanceAmount
+    public decimal Amount
     {
       get
       {
@@ -64,12 +61,12 @@ namespace BalanceMonitor.ViewModels
       set
       {
         balanceAmount = value;
-        this.RaisePropertyChangedEvent("BalanceAmount");
+        this.RaisePropertyChangedEvent("Amount");
       }
     }
 
     public WpfCommands.ICommand CreateNewAccountCommand { get; private set; }
 
-    public WpfCommands.ICommand WithdrawAmountCommand { get; private set; }
+    public WpfCommands.ICommand AddBalanceCommand { get; private set; }
   }
 }

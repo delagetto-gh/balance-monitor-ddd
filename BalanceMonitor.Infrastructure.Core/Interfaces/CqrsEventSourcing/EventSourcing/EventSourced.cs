@@ -47,14 +47,10 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 
     private void Apply(IDomainEvent @event, bool isNew)
     {
-      if (this.eventHandlers.ContainsKey(@event.GetType()))
-      {
-        this.eventHandlers[@event.GetType()](@event);
-        if (isNew)
-          this.changes.Add(@event);
+      this.eventHandlers[@event.GetType()](@event);
+      this.Version++;
 
-        this.Version++;
-      }
+      if (isNew) this.changes.Add(@event);
     }
   }
 }

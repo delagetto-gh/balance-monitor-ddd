@@ -1,12 +1,13 @@
-﻿using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Services.ApplicationServices;
+﻿using BalanceMonitor.Accounting.Application;
+using BalanceMonitor.Accounting.Application.Projections;
+using BalanceMonitor.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace BalanceMonitor.ViewModels.Regions
+namespace BalanceMonitor.ViewModels
 {
-  public class AccountAuditRegion : ViewModelBase, IAccountAuditRegion
+  public class AccountAuditRegion : ObservableViewModel, IAccountAuditRegion
   {
     private readonly IAccountingService accountingService;
 
@@ -31,10 +32,11 @@ namespace BalanceMonitor.ViewModels.Regions
       {
         this.date = value;
         this.RaisePropertyChangedEvent("Date");
+        this.RaisePropertyChangedEvent("DailyBalance");
       }
     }
 
-    public ObservableCollection<AccountAudit> DailyBalance
+    public ObservableCollection<AccountAudit> Audits
     {
       get
       {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace BalanceMonitor.ViewModels.Regions
+namespace BalanceMonitor.ViewModels
 {
   public interface IAccountDailyBalanceRegion
   {

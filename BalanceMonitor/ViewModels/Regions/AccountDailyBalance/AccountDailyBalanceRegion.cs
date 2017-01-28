@@ -3,9 +3,9 @@ using BalanceMonitor.Accounting.Application.Projections;
 using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Utility;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Timers;
 using System.Windows.Input;
 
@@ -25,7 +25,7 @@ namespace BalanceMonitor.ViewModels
       this.accountingService = accountingService;
       this.date = DateTime.Today;
       this.dailyBalances = new List<AccountDailyBalance>();
-        this.WithdrawAmountCommand= new DelegateCommand(o => this.accountingService.Submit(new WithdrawMoneyCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", (decimal)o))), (o) => this.dailyBalances.Any());
+      this.WithdrawAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new WithdrawMoneyCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", (decimal)o))), (o) => this.dailyBalances.Any());
       this.dataPoller = new Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
       this.dataPoller.Elapsed += dataPoller_Elapsed;
       this.dataPoller.Start();
@@ -33,7 +33,7 @@ namespace BalanceMonitor.ViewModels
 
     private void dataPoller_Elapsed(object sender, ElapsedEventArgs e)
     {
-        this.RaisePropertyChangedEvent("DailyBalance"); //force refresh of data to reflect the new date changed
+      this.RaisePropertyChangedEvent("DailyBalance"); //force refresh of data to reflect the new date changed
     }
 
     public DateTime Date

@@ -76,7 +76,7 @@
     <Compile Include="ViewModels\Regions\AccountDailyBalance\IAccountDailyBalanceRegion.cs" />
     <Compile Include="ViewModels\Regions\CreateAccount\CreateAccountRegion.cs" />
     <Compile Include="ViewModels\Regions\CreateAccount\ICreateAccountRegion.cs" />
-    <Compile Include="ViewModels\Shell\ApplicationShellViewModel.cs" />
+    <Compile Include="ViewModels\Shell\BalanceMonitorShellViewModel.cs" />
     <Compile Include="Utility\ObservableViewModel.cs" />
     <Page Include="Views\Shell\BalanceMonitorShellView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
 {
-  public abstract class EventSourcedRepository<TEventSourcedAr> : IAggregateRootRepository<TEventSourcedAr> where TEventSourcedAr : class, IEventSourced, IAggregateRoot, new()
+  public abstract class EventSourcedRepository<TEventSourcedAr> : IAggregateRootRepository<TEventSourcedAr> where TEventSourcedAr : class, IAggregateRoot, IEventSourced, new()
   {
     private readonly IEventStore eventStore;
     private readonly IDomainEvents domainEventsPublisher;
@@ -15,10 +15,10 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
       this.domainEventsPublisher = domainEventsPublisher;
     }
 
-    public TEventSourcedAr Get(Guid id)
+    public TEventSourcedAr Get(Guid aggregateId)
     {
       TEventSourcedAr agg = default(TEventSourcedAr);
-      var events = this.eventStore.Events.OfType<IDomainEvent>().Where(evt => evt.AggregateId == id);
+      var events = this.eventStore.Events.OfType<IDomainEvent>().Where(evt => evt.AggregateId == aggregateId);
       if (events.Any())
       {
         agg = new TEventSourcedAr();

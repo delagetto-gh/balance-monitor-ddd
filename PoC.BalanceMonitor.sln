@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnotherModuleTwoThatMayUseC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnotherModuleThreeThatMayUseDDDOnly", "AnotherModuleThreeThatMayUseDDDOnly", "{AFA3C69A-CF99-4BDC-9A5F-38AC6FF6920E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F462F9D7-BBB0-44A8-9B57-76DA3E20660C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules (aka BCs)", "Modules (aka BCs)", "{F462F9D7-BBB0-44A8-9B57-76DA3E20660C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceMonitor.Accounting.Application.Projections", "BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj", "{52DDB7F5-AFA8-4E71-A84F-718556CC6A84}"
 EndProject

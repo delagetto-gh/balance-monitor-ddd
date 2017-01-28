@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BalanceMonitor.Accounting.Application.Projections.Interfaces
+namespace BalanceMonitor.Accounting.Application.Projections
 {
   public interface IAccountDailyBalanceQuerier
   {

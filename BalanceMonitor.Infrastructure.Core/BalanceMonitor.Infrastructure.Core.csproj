@@ -61,12 +61,12 @@
     <Compile Include="BalanceMonitorTransactionScopeCommandBus.cs" />
     <Compile Include="BalanceMonitorXmlEventStore.cs" />
     <Compile Include="BalanceMonitorDomainEvents.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommand.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandBus.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\Cqrs\Command\ICommandHandler.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\EventSourced.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventSourced.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\IEventStore.cs" />
+    <Compile Include="Interfaces\Cqrs\Command\ICommand.cs" />
+    <Compile Include="Interfaces\Cqrs\Command\ICommandBus.cs" />
+    <Compile Include="Interfaces\Cqrs\Command\ICommandHandler.cs" />
+    <Compile Include="Interfaces\EventSourcing\EventSourced.cs" />
+    <Compile Include="Interfaces\EventSourcing\IEventSourced.cs" />
+    <Compile Include="Interfaces\EventSourcing\IEventStore.cs" />
     <Compile Include="Interfaces\DDD\Events\DomainEvent.cs" />
     <Compile Include="Interfaces\DDD\Aggregates\IAggregateRoot.cs" />
     <Compile Include="Interfaces\DDD\Aggregates\IEntity.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Interfaces\DDD\Events\IDomainEvent.cs" />
     <Compile Include="Interfaces\DDD\Events\IDomainEvents.cs" />
     <Compile Include="Interfaces\DDD\Events\IHandleEvents.cs" />
-    <Compile Include="Interfaces\CqrsEventSourcing\EventSourcing\EventSourcedRepository.cs" />
+    <Compile Include="Interfaces\EventSourcing\EventSourcedRepository.cs" />
     <Compile Include="Interfaces\DDD\Repositories\IAggregateRootRepository.cs" />
     <Compile Include="Interfaces\Ioc\IContainer.cs" />
     <Compile Include="Interfaces\Logging\ILogger.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\CqrsEventSourcing\Cqrs\Query - Templated for Readmodel Repository go here\" />
+    <Folder Include="Interfaces\Cqrs\Query - Templated for Readmodel Repository go here\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

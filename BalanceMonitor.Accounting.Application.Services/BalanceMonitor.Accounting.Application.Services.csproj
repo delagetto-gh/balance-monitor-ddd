@@ -64,12 +64,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Application.Projections\BalanceMonitor.Accounting.Application.Projections.csproj">
       <Project>{52ddb7f5-afa8-4e71-a84f-718556cc6a84}</Project>
       <Name>BalanceMonitor.Accounting.Application.Projections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BalanceMonitor.Accounting.Application\BalanceMonitor.Accounting.Application.csproj">
+      <Project>{87e2cd7f-fbfc-43ec-a471-da6f88346608}</Project>
+      <Name>BalanceMonitor.Accounting.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Events\BalanceMonitor.Accounting.Domain.Events.csproj">
       <Project>{f250712e-418a-4b71-9731-09d180f0aa7c}</Project>

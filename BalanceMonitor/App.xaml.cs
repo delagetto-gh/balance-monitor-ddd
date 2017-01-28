@@ -1,24 +1,20 @@
 ﻿using BalanceMonitor.Accounting.Application;
 using BalanceMonitor.Accounting.Application.CommonHandlers;
 using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Projections.Interfaces;
+using BalanceMonitor.Accounting.Application.Projections.InMemory;
+using BalanceMonitor.Accounting.Application.Services;
 using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Accounting.Domain.Events;
-using BalanceMonitor.Accounting.Domain.Model;
 using BalanceMonitor.Accounting.Domain.Model.Repositories;
 using BalanceMonitor.Accounting.Domain.Services;
 using BalanceMonitor.Infrastructure.Core;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
 using BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing;
-using BalanceMonitor.Infrastructure.Core.Interfaces.UnitOfWork;
 using BalanceMonitor.Infrastructure.Core.Logging;
 using BalanceMonitor.Infrastructure.Interfaces.Ioc;
 using BalanceMonitor.Infrastructure.Interfaces.Logging;
-using BalanceMonitor.Utility;
 using BalanceMonitor.ViewModels;
-using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -69,10 +65,6 @@ namespace BalanceMonitor
       //register eventPublisher
       container.Register<IDomainEvents, BalanceMonitorDomainEvents>();
 
-      //register sessions
-      container.Register<AccountDailyBalanceSession>();
-      container.Register<AccountAuditSession>();
-
       //registee domain repositories
       container.Register<IAccountRepository, AccountRepository>();
 
@@ -98,7 +90,7 @@ namespace BalanceMonitor
       container.Register<ICreateAccountRegion, CreateAccountRegion>();
       container.Register<IAccountAuditRegion, AccountAuditRegion>();
       container.Register<IAccountDailyBalanceRegion, AccountDailyBalanceRegion>();
-      container.Register<IShellViewModel, ApplicationShellViewModel>();
+      container.Register<IShellViewModel, BalanceMonitorShellViewModel>();
     }
   }
 }

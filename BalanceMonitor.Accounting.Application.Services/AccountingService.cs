@@ -1,10 +1,9 @@
 ﻿using BalanceMonitor.Accounting.Application.Projections;
-using BalanceMonitor.Accounting.Application.Projections.Interfaces;
 using BalanceMonitor.Infrastructure.Core.Interfaces.Cqrs;
 using System;
 using System.Collections.Generic;
 
-namespace BalanceMonitor.Accounting.Application
+namespace BalanceMonitor.Accounting.Application.Services
 {
   public class AccountingService : IAccountingService
   {

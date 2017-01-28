@@ -40,15 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountAudit\AccountAuditSession.cs" />
-    <Compile Include="AccountAudit\AccountAudit.cs" />
-    <Compile Include="AccountDailyBalance\AccountDailyBalance.cs" />
-    <Compile Include="AccountDailyBalance\AccountDailyBalanceSession.cs" />
-    <Compile Include="AccountDailyBalance\AccountDailyBalanceDenormaliser.cs" />
-    <Compile Include="AccountAudit\AccountAuditDenormaliser.cs" />
+    <Compile Include="Core\AccountAudit\AccountAudit.cs" />
+    <Compile Include="Core\AccountDailyBalance\AccountDailyBalance.cs" />
+    <Compile Include="InMemory\AccountDailyBalanceDenormaliser.cs" />
+    <Compile Include="InMemory\AccountAuditProjection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AccountAudit\Interfaces\IAccountAuditQuerier.cs" />
-    <Compile Include="AccountDailyBalance\Interfaces\IAccountDailyBalanceQuerier.cs" />
+    <Compile Include="Core\AccountAudit\IAccountAuditQuerier.cs" />
+    <Compile Include="Core\AccountDailyBalance\IAccountDailyBalanceQuerier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BalanceMonitor.Accounting.Domain.Common\BalanceMonitor.Accounting.Domain.Common.csproj">
@@ -67,7 +65,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Csv - Todo\" />
+    <Folder Include="Sql - Todo\" />
+    <Folder Include="Xml - Todo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

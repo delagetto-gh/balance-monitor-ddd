@@ -2,13 +2,13 @@
 
 namespace BalanceMonitor.ViewModels
 {
-  public class ApplicationShellViewModel : ObservableViewModel, IShellViewModel
+  public class BalanceMonitorShellViewModel : ObservableViewModel, IShellViewModel
   {
     private readonly ICreateAccountRegion createNewAccountSection;
     private readonly IAccountAuditRegion accountAuditSection;
     private readonly IAccountDailyBalanceRegion dailyalanceSection;
 
-    public ApplicationShellViewModel(IAccountAuditRegion accountListingsSection, ICreateAccountRegion createNewAccountSection, IAccountDailyBalanceRegion dailyBalRegion)
+    public BalanceMonitorShellViewModel(IAccountAuditRegion accountListingsSection, ICreateAccountRegion createNewAccountSection, IAccountDailyBalanceRegion dailyBalRegion)
     {
       this.createNewAccountSection = createNewAccountSection;
       this.accountAuditSection = accountListingsSection;

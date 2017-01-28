@@ -94,12 +94,12 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
 
     public IEnumerable<AccountDailyBalance> GetAccountBalanceOn(DateTime date)
     {
-      return this.accountDailyBalances.Where(o => o.Date.Date == date.Date);
+      return AccountDailyBalanceDb.Where(o => o.Date.Date == date.Date);
     }
 
     public IEnumerable<AccountDailyBalance> GetAccountBalanceOn(Guid accId, DateTime date)
     {
-      return this.accountDailyBalances.Where(o => o.Date.Date == date.Date && o.AccountId == accId);
+      return AccountDailyBalanceDb.Where(o => o.Date.Date == date.Date && o.AccountId == accId);
     }
   }
 }

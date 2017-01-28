@@ -44,7 +44,7 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
 
     public IEnumerable<AccountAudit> GetAuditOnDate(DateTime date)
     {
-      return this.accountAuditCurrent.Where(o => o.Time.Date == date.Date).ToList();
+      return AccountAuditsDb.Where(o => o.Time.Date == date.Date).ToList();
     }
 
     public void Handle(AmountDepositedEvent @event)

@@ -58,6 +58,6 @@ namespace BalanceMonitor.ViewModels
       }
     }
 
-    public ICommand WithdrawAmountCommand { get; set; }
+    public ICommand WithdrawAmountCommand { get; private set; }
   }
 }

@@ -10,8 +10,8 @@
     </Grid.RowDefinitions>
     <Grid>
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="70*"/>
-        <ColumnDefinition Width="30*"/>
+        <ColumnDefinition Width="60*"/>
+        <ColumnDefinition Width="40*"/>
       </Grid.ColumnDefinitions>
       <Grid Grid.Column="0" Background="LightGray">
         <TextBox HorizontalAlignment="Left" Height="23" Margin="119,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" Text="{Binding CreateNewAccountSection.Name}"/>
@@ -39,14 +39,14 @@
             <DataGridTemplateColumn Header="Deposit">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                  <Button Content=" + " FontWeight="ExtraBold" Foreground="Green"  Command="{Binding ElementName=mainRoot, Path=AccountDailyBalanceSection.DepositAmountCommand}" CommandParameter="{Binding ElementName depositOrWithdrawAmount}"/>
+                  <Button Content=" + " FontWeight="ExtraBold" Foreground="Green"  Command="{Binding ElementName=mainRoot, Path=DataContext.AccountDailyBalanceSection.DepositAmountCommand}" CommandParameter="{Binding ElementName=depositOrWithdrawAmount, Path=Content}"/>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
             <DataGridTemplateColumn Header="Withdraw">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                  <Button Content=" - " FontWeight="ExtraBold" Foreground="Red" Command="{Binding ElementName=mainRoot, Path=AccountDailyBalanceSection.WithdrawAmountCommand}" CommandParameter="{Binding ElementName depositOrWithdrawAmount}"/>
+                  <Button Content=" - " FontWeight="ExtraBold" Foreground="Red" Command="{Binding ElementName=mainRoot, Path=DataContext.AccountDailyBalanceSection.WithdrawAmountCommand}" CommandParameter="{Binding ElementName=depositOrWithdrawAmount, Path=Content}"/>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

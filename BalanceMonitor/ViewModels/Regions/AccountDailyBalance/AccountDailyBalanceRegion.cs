@@ -25,7 +25,6 @@ namespace BalanceMonitor.ViewModels
       this.accountingService = accountingService;
       this.date = DateTime.Today;
       this.dailyBalances = new List<AccountDailyBalance>();
-      this.WithdrawAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new WithdrawMoneyCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", (decimal)o))), (o) => this.dailyBalances.Any());
       this.dataPoller = new Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
       this.dataPoller.Elapsed += dataPoller_Elapsed;
       this.dataPoller.Start();
@@ -58,6 +57,17 @@ namespace BalanceMonitor.ViewModels
       }
     }
 
-    public ICommand WithdrawAmountCommand { get; private set; }
+    private ICommand withdrawAmountCommand;
+    public ICommand WithdrawAmountCommand
+    {
+      get
+      {
+        if (this.withdrawAmountCommand == null)
+        {
+          this.withdrawAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new WithdrawMoneyCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", 10M))), (o) => this.dailyBalances.Any());
+        }
+        return this.withdrawAmountCommand;
+      }
+    }
   }
 }

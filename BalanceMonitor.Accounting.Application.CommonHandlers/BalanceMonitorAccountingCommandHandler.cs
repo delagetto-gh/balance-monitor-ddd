@@ -28,7 +28,7 @@ namespace BalanceMonitor.Accounting.Application.CommonHandlers
         Account acct = this.repository.Get(cmd.Identifier);
         if (acct == null)
         {
-          acct = Account.Create(cmd.Identifier, cmd.Name, cmd.Created);
+          acct = Account.Create(cmd.Identifier, cmd.Name, cmd.Created, cmd.OpeningBalance);
           this.repository.Save(acct);
         }
         else

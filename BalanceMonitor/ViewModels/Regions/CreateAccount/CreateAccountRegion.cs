@@ -3,6 +3,8 @@ using BalanceMonitor.Accounting.Domain.Commands;
 using BalanceMonitor.Accounting.Domain.Common;
 using BalanceMonitor.Utility;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WpfCommands = System.Windows.Input;
 
@@ -20,7 +22,7 @@ namespace BalanceMonitor.ViewModels
     {
       this.accountingService = accountingService;
       this.Balance = new ObservableCollection<Money>();
-      this.CreateNewAccountCommand = new DelegateCommand(o => this.accountingService.Submit(new CreateAccountCommand((this.accountId = Guid.NewGuid()), this.Name)), o => !String.IsNullOrWhiteSpace(this.Name) && this.accountId == Guid.Empty);
+      this.CreateNewAccountCommand = new DelegateCommand(o => this.accountingService.Submit(new CreateAccountCommand((this.accountId = Guid.NewGuid()), this.Name, this.Balance)), o => !String.IsNullOrWhiteSpace(this.Name) && this.accountId == Guid.Empty);
       this.AddBalanceCommand = new DelegateCommand(o => this.Balance.Add(new Money(this.Currency, this.Amount)), o => this.accountId == Guid.Empty);
     }
 

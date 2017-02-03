@@ -50,7 +50,8 @@ namespace BalanceMonitor.Infrastructure.Core.Interfaces.EventSourcing
       this.eventHandlers[@event.GetType()](@event);
       this.Version++;
 
-      if (isNew) this.changes.Add(@event);
+      if (isNew)
+        this.changes.Add(@event);
     }
   }
 }

@@ -10,7 +10,7 @@ namespace BalanceMonitor.Accounting.Domain.Model
 {
   public class Account : EventSourced, IAggregateRoot
   {
-    private List<Money> balance;
+    private List<Money> balance = new List<Money>();
     private string name;
     private DateTime created;
 
@@ -28,11 +28,26 @@ namespace BalanceMonitor.Accounting.Domain.Model
       base.Handles<AmountWithdrawalEvent>(this.OnAmountWithdrawn);
     }
 
+    /// <summary>
+    /// Create account with no opening balance(s)
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="name"></param>
+    /// <param name="created"></param>
+    /// <returns></returns>
     public static Account Create(Guid id, string name, DateTime created)
     {
       return Account.Create(id, name, created, new List<Money>());
     }
 
+    /// <summary>
+    /// Create account with an opening balance(s)
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="name"></param>
+    /// <param name="created"></param>
+    /// <param name="openingBalance"></param>
+    /// <returns></returns>
     public static Account Create(Guid id, string name, DateTime created, IEnumerable<Money> openingBalance)
     {
       return new Account(id, name, created, openingBalance);
@@ -40,7 +55,7 @@ namespace BalanceMonitor.Accounting.Domain.Model
 
     public void Withdraw(string currency, decimal amount)
     {
-      if (amount < 0M)
+      if (amount >= 0M)
       {
         this.Apply(new AmountWithdrawalEvent(this.Id, new Money(currency, amount)));
       }
@@ -52,13 +67,13 @@ namespace BalanceMonitor.Accounting.Domain.Model
 
     public void Deposit(string currency, decimal amount)
     {
-      if (amount < 0M)
+      if (amount >= 0M)
       {
         this.Apply(new AmountDepositedEvent(this.Id, new Money(currency, amount)));
       }
       else
       {
-        throw new Exception(String.Format("Cannot withraw a negative number: {0}", amount));
+        throw new Exception(String.Format("Cannot deposit a negative number: {0}", amount));
       }
     }
 
@@ -68,11 +83,11 @@ namespace BalanceMonitor.Accounting.Domain.Model
       int idx = this.balance.FindIndex(b => b.Currency == amount.Currency);
       if (idx != -1)
       {
-        this.balance[idx].Amount -= amount.Amount;
+        this.balance[idx].Value -= amount.Value;
       }
       else
       {
-        this.balance.Add(new Money(amount.Currency, amount.Amount));
+        this.balance.Add(new Money(amount.Currency, amount.Value));
       }
     }
 
@@ -82,11 +97,11 @@ namespace BalanceMonitor.Accounting.Domain.Model
       int idx = this.balance.FindIndex(b => b.Currency == amount.Currency);
       if (idx != -1)
       {
-        this.balance[idx].Amount += amount.Amount;
+        this.balance[idx].Value += amount.Value;
       }
       else
       {
-        this.balance.Add(new Money(amount.Currency, amount.Amount));
+        this.balance.Add(new Money(amount.Currency, amount.Value));
       }
     }
 

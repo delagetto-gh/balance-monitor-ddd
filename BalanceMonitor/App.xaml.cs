@@ -77,7 +77,8 @@ namespace BalanceMonitor
 
       //registeer command handler(s)
       container.Register<ICommandHandler<CreateAccountCommand>, BalanceMonitorAccountingCommandHandler>();
-      container.Register<ICommandHandler<WithdrawMoneyCommand>, BalanceMonitorAccountingCommandHandler>();
+      container.Register<ICommandHandler<WithdrawAmountCommand>, BalanceMonitorAccountingCommandHandler>();
+      container.Register<ICommandHandler<DepositAmountCommand>, BalanceMonitorAccountingCommandHandler>();
     }
 
     private void RegisterApplicationServies(IContainer container)

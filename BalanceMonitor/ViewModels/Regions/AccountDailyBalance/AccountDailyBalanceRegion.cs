@@ -13,12 +13,13 @@ namespace BalanceMonitor.ViewModels
 {
   public class AccountDailyBalanceRegion : ObservableViewModel, IAccountDailyBalanceRegion
   {
+    private readonly Timer dataPoller;
     private readonly IAccountingService accountingService;
 
-    private IEnumerable<AccountDailyBalance> dailyBalances;
-
     private DateTime date;
-    private Timer dataPoller;
+    private ICommand depositAmountCommand;
+    private ICommand withdrawAmountCommand;
+    private IEnumerable<AccountDailyBalance> dailyBalances;
 
     public AccountDailyBalanceRegion(IAccountingService accountingService)
     {
@@ -57,14 +58,25 @@ namespace BalanceMonitor.ViewModels
       }
     }
 
-    private ICommand withdrawAmountCommand;
+    public ICommand DepositAmountCommand
+    {
+      get
+      {
+        if (this.depositAmountCommand == null)
+        {
+          this.depositAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new DepositAmountCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", 10M))), (o) => this.dailyBalances.Any());
+        }
+        return this.depositAmountCommand;
+      }
+    }
+
     public ICommand WithdrawAmountCommand
     {
       get
       {
         if (this.withdrawAmountCommand == null)
         {
-          this.withdrawAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new WithdrawMoneyCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", 10M))), (o) => this.dailyBalances.Any());
+          this.withdrawAmountCommand = new DelegateCommand(o => this.accountingService.Submit(new WithdrawAmountCommand(dailyBalances.First().AccountId, new Accounting.Domain.Common.Money("GBP", 10M))), (o) => this.dailyBalances.Any());
         }
         return this.withdrawAmountCommand;
       }

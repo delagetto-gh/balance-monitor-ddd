@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateAccountCommand.cs" />
-    <Compile Include="WithdrawMoneyCommand.cs" />
+    <Compile Include="DepositAmountCommand.cs" />
+    <Compile Include="WithdrawAmountCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsIdentityCommand.cs" />
   </ItemGroup>

@@ -8,7 +8,8 @@ using System;
 namespace BalanceMonitor.Accounting.Application.CommonHandlers
 {
   public class BalanceMonitorAccountingCommandHandler : ICommandHandler<CreateAccountCommand>,
-                                                        ICommandHandler<WithdrawMoneyCommand>
+                                                        ICommandHandler<WithdrawAmountCommand>,
+                                                        ICommandHandler<DepositAmountCommand>
   {
     private readonly IAccountRepository repository;
     private readonly ILogger logger;
@@ -43,7 +44,7 @@ namespace BalanceMonitor.Accounting.Application.CommonHandlers
       this.logger.Log(string.Format("Exit {0} command handler", cmd.GetType().Name));
     }
 
-    public void HandleCommand(WithdrawMoneyCommand cmd)
+    public void HandleCommand(WithdrawAmountCommand cmd)
     {
       this.logger.Log(string.Format("In {0} command handler", cmd.GetType().Name));
 
@@ -53,6 +54,25 @@ namespace BalanceMonitor.Accounting.Application.CommonHandlers
         if (acc != null)
         {
           acc.Withdraw(cmd.Amount.Currency, cmd.Amount.Value);
+          this.repository.Save(acc);
+        }
+        else
+        {
+          throw new Exception(String.Format("No Account exists with Id {0}", cmd.AccountId));
+        }
+      }
+    }
+
+    public void HandleCommand(DepositAmountCommand cmd)
+    {
+      this.logger.Log(string.Format("In {0} command handler", cmd.GetType().Name));
+
+      if (cmd != null)
+      {
+        Account acc = this.repository.Get(cmd.AccountId);
+        if (acc != null)
+        {
+          acc.Deposit(cmd.Amount.Currency, cmd.Amount.Value);
           this.repository.Save(acc);
         }
         else

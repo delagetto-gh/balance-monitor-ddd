@@ -55,7 +55,7 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
         AccountAudit accAudit = new AccountAudit
         {
           AccountId = @event.AggregateId,
-          AccountName = @event.AccountName,
+          AccountName = account.AccountName,
           Action = "Amount Deposited",
           Time = @event.DateOccured
         };
@@ -63,7 +63,7 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
       }
       else
       {
-        throw new Exception(String.Format("Account found with Id: {0}", @event.AggregateId));
+        throw new Exception(String.Format("No account found with Id: {0}", @event.AggregateId));
       }
     }
 
@@ -75,7 +75,7 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
         AccountAudit accAudit = new AccountAudit
         {
           AccountId = @event.AggregateId,
-          AccountName = @event.AccountName,
+          AccountName = account.AccountName,
           Action = "Amount Withdrawn",
           Time = @event.DateOccured
         };

@@ -1,4 +1,5 @@
-﻿using BalanceMonitor.Accounting.Domain.Events;
+﻿using BalanceMonitor.Accounting.Domain.Common;
+using BalanceMonitor.Accounting.Domain.Events;
 using BalanceMonitor.Infrastructure.Core.Interfaces.DDD;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
           AccountId = @event.AggregateId,
           AccountName = @event.Name,
           Date = @event.DateOccured,
-          Balance = @event.OpeningBalance
+          Balance = new List<Money>(@event.OpeningBalance)
         };
         this.accountDailyBalances.Add(newAcc);
       }
@@ -66,11 +67,23 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
 
     public void Handle(AmountDepositedEvent @event)
     {
-      var newAcc = this.accountDailyBalances.FirstOrDefault(o => o.AccountId == @event.AggregateId);
-      if (newAcc != null)
+      var account = this.accountDailyBalances.FirstOrDefault(o => o.AccountId == @event.AggregateId);
+      if (account != null)
       {
-        newAcc.Date = @event.DateOccured;
-        newAcc.AccountName = newAcc.AccountName + @event.DateOccured;
+        account.Date = @event.DateOccured;
+        account.AccountName = account.AccountName;
+
+        var accBalance = account.Balance.SingleOrDefault(o => o.Currency == @event.Amount.Currency);
+        if (accBalance != null)
+        {
+          int idx = account.Balance.IndexOf(accBalance);
+          account.Balance[idx] = new Money(accBalance.Currency, (accBalance.Value + @event.Amount.Value));
+        }
+        else
+        {
+          accBalance = new Money(@event.Amount.Currency, @event.Amount.Value);
+          account.Balance.Add(accBalance);
+        }
       }
       else
       {
@@ -80,11 +93,23 @@ namespace BalanceMonitor.Accounting.Application.Projections.InMemory
 
     public void Handle(AmountWithdrawalEvent @event)
     {
-      var newAcc = this.accountDailyBalances.FirstOrDefault(o => o.AccountId == @event.AggregateId);
-      if (newAcc != null)
+      var account = this.accountDailyBalances.FirstOrDefault(o => o.AccountId == @event.AggregateId);
+      if (account != null)
       {
-        newAcc.Date = @event.DateOccured;
-        newAcc.AccountName = newAcc.AccountName + @event.DateOccured;
+        account.Date = @event.DateOccured;
+        account.AccountName = account.AccountName;
+
+        var accBalance = account.Balance.SingleOrDefault(o => o.Currency == @event.Amount.Currency);
+        if (accBalance != null)
+        {
+          int idx = account.Balance.IndexOf(accBalance);
+          account.Balance[idx] = new Money(accBalance.Currency, (accBalance.Value - @event.Amount.Value));
+        }
+        else
+        {
+          accBalance = new Money(@event.Amount.Currency, @event.Amount.Value);
+          account.Balance.Add(accBalance);
+        }
       }
       else
       {

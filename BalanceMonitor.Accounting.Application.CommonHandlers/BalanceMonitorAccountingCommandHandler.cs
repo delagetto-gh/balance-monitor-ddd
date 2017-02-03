@@ -52,7 +52,7 @@ namespace BalanceMonitor.Accounting.Application.CommonHandlers
         Account acc = this.repository.Get(cmd.AccountId);
         if (acc != null)
         {
-          acc.Withdraw(cmd.Amount.Currency, cmd.Amount.Amount);
+          acc.Withdraw(cmd.Amount.Currency, cmd.Amount.Value);
           this.repository.Save(acc);
         }
         else

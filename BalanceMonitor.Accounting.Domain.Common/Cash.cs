@@ -8,12 +8,12 @@ namespace BalanceMonitor.Accounting.Domain.Common
     public Money(string currency, decimal value)
     {
       this.Currency = currency;
-      this.Amount = value;
+      this.Value = value;
     }
 
     public string Currency { get; set; }
 
-    public decimal Amount { get; set; }
+    public decimal Value { get; set; }
 
     private Money() { }
   }

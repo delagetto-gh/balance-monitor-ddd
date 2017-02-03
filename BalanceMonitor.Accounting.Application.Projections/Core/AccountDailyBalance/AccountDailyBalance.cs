@@ -12,6 +12,6 @@ namespace BalanceMonitor.Accounting.Application.Projections
 
     public DateTime Date { get; set; }
 
-    public IEnumerable<Money> Balance { get; set; }
+    public List<Money> Balance { get; set; }
   }
 }

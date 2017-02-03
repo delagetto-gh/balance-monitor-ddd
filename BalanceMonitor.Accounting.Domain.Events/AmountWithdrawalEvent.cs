@@ -20,7 +20,5 @@ namespace BalanceMonitor.Accounting.Domain.Events
     { }
 
     public Money Amount { get; set; }
-
-    public string AccountName { get; set; }
   }
 }

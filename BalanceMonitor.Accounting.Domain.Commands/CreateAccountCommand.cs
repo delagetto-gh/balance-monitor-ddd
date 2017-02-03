@@ -19,11 +19,11 @@ namespace BalanceMonitor.Accounting.Domain.Commands
       : this(id, name, new List<Money>())
     { }
 
-    public Guid Identifier { get; private set; }
+    public Guid Identifier { get; set; }
 
-    public string Name { get; private set; }
+    public string Name { get; set; }
 
-    public DateTime Created { get; private set; }
+    public DateTime Created { get; set; }
 
     public IEnumerable<Money> OpeningBalance { get; set; }
   }
